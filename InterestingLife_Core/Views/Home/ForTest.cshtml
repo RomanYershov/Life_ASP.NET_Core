@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "ForTest";
+}
+
+<h2 data-bind="text: name"></h2>
+
+
+
+
+@section Scripts
+{
+    <script>
+        require(['../js/config'], function() {
+            require(['ko', 'models/test-view-model', 'jquery'], function(ko, testModel, $) {
+                $(document).ready(function () {
+                    ko.applyBindings(new testModel());
+                });
+                   
+               
+            });
+        });
+    </script>
+}
+
