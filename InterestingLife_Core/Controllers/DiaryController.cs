@@ -26,9 +26,8 @@ namespace InterestingLife_Core.Controllers
         [HttpGet]
         public IActionResult GetTableByDate(string date)
         {
-            var selectDate = DateTime.Parse(date);
             var tableStringValue = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date));
-            if (tableStringValue != null) return Json(tableStringValue.OneMonthStatistic);
+            if (tableStringValue != null) return Json(tableStringValue);
             return Json("not data");
         }
 
