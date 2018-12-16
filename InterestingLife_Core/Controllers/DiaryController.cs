@@ -42,5 +42,15 @@ namespace InterestingLife_Core.Controllers
             _applicationDb.SaveChanges();
             return Json("test is success!!!");
         }
+
+        [HttpPost]
+        public IActionResult Save(int id, string str)
+        {
+            var diary = _applicationDb.Diaries.Find(id);
+            diary.OneMonthStatistic = str;
+            _applicationDb.Update(diary);
+            _applicationDb.SaveChanges();
+            return Json("success");
+        }
     }
 }

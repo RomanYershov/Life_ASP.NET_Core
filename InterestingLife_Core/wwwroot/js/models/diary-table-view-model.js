@@ -3,13 +3,20 @@
         var self = this;
         self.remote = new remote();
         self.title = ko.observable('ДУХОВНЫЙ ДНЕВНИК');
-        self.currentDate = ko.observable('2018-12');//todo Нужно чтоб текущая дата устан динамически
+        self.id = ko.observable();
+        self.getCurrentDate = function () {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            return year + '-' + month;
+        }
+        self.currentDate = ko.observable(self.getCurrentDate());//todo Нужно чтоб текущая дата устан динамически
         self.table = ko.observableArray();
         var column = function () {
             this.cells = ko.observableArray();
         }
 
-
+      
 
 
         self.valueToString = function (formElement) {
@@ -23,7 +30,7 @@
 
         self.saveNewValue = function (formElement) {
             var strValue = self.valueToString(formElement);
-            self.remote.post('/Diary/Test', { str: strValue }, function (result) {
+            self.remote.post('/Diary/Save', {id: self.id(), str: strValue }, function (result) {
                 debugger;
             });
         }
@@ -39,11 +46,26 @@
                 col.cells.push(new Cell(arrValue[i]));
             }
         };
+        var fakeFillCells = function() {
+            self.table([]);
+            var col = new column();
+            for (var i = 0; i < 651 ; i++) {
+                if (i % 21 == 0) {
+                    col = new column();
+                    self.table.push(col);
+                }
+                col.cells.push(new Cell());
+            }
+        }
         self.getTable = function (evnt) {
             var selectedDate = !!!evnt ? self.currentDate() : evnt.currentDate();
             self.remote.get('/Diary/GetTableByDate', { date: selectedDate },
                 function (result) {
-                    debugger;
+                    if (result === "not data") {
+                        fakeFillCells();
+                        return;
+                    }
+                    self.id(result.id);
                     fillCells(result.oneMonthStatistic.split(";"));
                 });
         }
