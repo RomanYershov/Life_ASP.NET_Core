@@ -10,13 +10,13 @@
             var month = date.getMonth() + 1;
             return year + '-' + month;
         }
-        self.currentDate = ko.observable(self.getCurrentDate());//todo Нужно чтоб текущая дата устан динамически
+        self.currentDate = ko.observable(self.getCurrentDate());
         self.table = ko.observableArray();
         var column = function () {
             this.cells = ko.observableArray();
         }
 
-      
+
 
 
         self.valueToString = function (formElement) {
@@ -27,17 +27,21 @@
             }
             return str;
         }
+        self.createNewTable = function () {
 
+        }
         self.saveNewValue = function (formElement) {
+            debugger;
             var strValue = self.valueToString(formElement);
-            self.remote.post('/Diary/Save', {id: self.id(), str: strValue }, function (result) {
-                debugger;
-            });
+            self.remote.post('/Diary/Save', { id: self.id(), str: strValue, date: self.currentDate() },
+                function (result) {
+                    self.id(result);
+                });
         }
 
         var fillCells = function (arrValue) {
             self.table([]);
-            var col = new column(); 
+            var col = new column();
             for (var i = 0; i < arrValue.length - 1; i++) {
                 if (i % 21 == 0) {
                     col = new column();
@@ -46,10 +50,10 @@
                 col.cells.push(new Cell(arrValue[i]));
             }
         };
-        var fakeFillCells = function() {
+        var fakeFillCells = function () {
             self.table([]);
             var col = new column();
-            for (var i = 0; i < 651 ; i++) {
+            for (var i = 0; i < 651; i++) {
                 if (i % 21 == 0) {
                     col = new column();
                     self.table.push(col);

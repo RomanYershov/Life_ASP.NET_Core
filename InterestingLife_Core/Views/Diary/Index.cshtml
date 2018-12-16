@@ -38,9 +38,9 @@
     {
     <script>
         require(['../js/config'], function () {
-            require(['ko', 'models/diary-table-view-model', 'jquery'], function (ko, model, $) {
+            require(['ko', 'models/diary-table-view-model', 'jquery'], function (ko, diaryViewModel, $) {
                 $(document).ready(function () {
-                    ko.applyBindings(new model());
+                    ko.applyBindings(new diaryViewModel());
                 });
 
 

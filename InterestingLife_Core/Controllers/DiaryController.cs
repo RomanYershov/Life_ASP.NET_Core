@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using InterestingLife_Core.Data;
 using InterestingLife_Core.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InterestingLife_Core.Controllers
 {
+    [Authorize]
     public class DiaryController : Controller
     {
-        //private LifeDbContext _dbContext;
         private ApplicationDbContext _applicationDb;
 
         public DiaryController(ApplicationDbContext context)
@@ -25,8 +27,10 @@ namespace InterestingLife_Core.Controllers
 
         [HttpGet]
         public IActionResult GetTableByDate(string date)
-        {
-            var tableStringValue = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date));
+        { 
+            var userId =  _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
+            var tableStringValue = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date) 
+                                                                              && x.UserId == userId);
             if (tableStringValue != null) return Json(tableStringValue);
             return Json("not data");
         }
@@ -34,7 +38,6 @@ namespace InterestingLife_Core.Controllers
         [HttpPost]
         public IActionResult Test(string str)
         {
-          
             _applicationDb.Diaries.Add(new Diary
             {
                 OneMonthStatistic = str
@@ -44,13 +47,26 @@ namespace InterestingLife_Core.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string str)
+        public IActionResult Save(int id, string str, string date)
         {
-            var diary = _applicationDb.Diaries.Find(id);
-            diary.OneMonthStatistic = str;
-            _applicationDb.Update(diary);
-            _applicationDb.SaveChanges();
-            return Json("success");
+            var dateTime = DateTime.Parse(date);
+            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.Id == id && x.DateTime == dateTime);
+            if (diary == null)
+            {
+                var userId = _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
+                var newDiary = new Diary{OneMonthStatistic = str, DateTime = dateTime, UserId = userId };
+                _applicationDb.Diaries.Add(newDiary);
+                _applicationDb.SaveChanges();
+                return Json(newDiary.Id);
+            }
+            else
+            {
+                diary.OneMonthStatistic = str;
+                _applicationDb.Update(diary);
+                _applicationDb.SaveChanges();
+                return Json(diary.Id);
+            }
+           
         }
     }
 }
