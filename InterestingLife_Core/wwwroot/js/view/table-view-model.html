@@ -16,16 +16,22 @@
          margin-bottom: 1px;
          text-align: center;
          border: none;
-         background: rgba(0, 0, 0, .5);
+         background: rgba(0, 0, 0, .36);
          color: beige;
+         border-radius: 3.5px;
      }
     .cell.date {
         background: aqua;
-        color: brown
+        color: brown;
+        transition: all .5s;
     }
     .date.active {
         background: red;
         color: azure;
+    }
+    .date:hover {
+        transform: rotate(360deg);
+        /*border-radius: 10px;*/
     }
 </style>
 

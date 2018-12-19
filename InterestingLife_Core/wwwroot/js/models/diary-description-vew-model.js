@@ -4,7 +4,7 @@
 
 
         self.description = ko.observableArray(Description);
-        debugger;
+      
         self.test = ko.observable(params.name);
     };
     debugger;

@@ -1,8 +1,10 @@
 ﻿define(['ko'], function(ko) {
-    return function(val) {
-        this.cell = ko.observable(val);
-        //this.cell.subscribe(function (newVal) {
-        //    debugger;
-        //});
+    return function (val) {
+        var self = this;
+        self.cell = ko.observable(val);
+        self.cell.subscribe(function (newVal) {
+            var isWord = newVal.match(/[a-zA-Zа-яА-Я\W]/ig);
+            self.cell(isWord != null ? '' : newVal);
+        });
     }
 });

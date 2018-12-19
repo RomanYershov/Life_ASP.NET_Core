@@ -4,7 +4,7 @@
     var viewModel = function () {
         var self = this;
         self.remote = new remote();
-        self.title = ko.observable('ДУХОВНЫЙ ДНЕВНИК');
+        self.title = ko.observable('ДНЕВНИК');
         self.id = ko.observable();
         self.getCurrentDate = function () {
             var date = new Date();
