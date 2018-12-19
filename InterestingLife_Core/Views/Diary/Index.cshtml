@@ -1,4 +1,4 @@
-﻿<style>
+﻿@*<style>
     .cell {
         width: 21px;
         height: 21px;
@@ -20,21 +20,40 @@
     </div>
     <!--/ko-->
     <input type="submit" value="save"/>
-</form>
+</form>*@
+
+
+@*<template id="table-template">
+    <p data-bind="text: $component.test"></p>
+</template>*@
 
 
 
 
-
-
-
-
-
-
-
-
+<table-component></table-component>
 
 @section Scripts
+{
+    <script>
+        require(['../js/config'], function () {
+            require(['ko', 'models/diary-table-view-model', 'jquery'], function (ko, diaryViewModel, $) {
+                $(document).ready(function () {
+                    ko.applyBindings();
+                });
+
+
+            });
+        });
+    </script>
+}
+ 
+
+
+
+
+
+
+@*@section Scripts
     {
     <script>
         require(['../js/config'], function () {
@@ -47,5 +66,5 @@
             });
         });
     </script>
-}
+}*@
 

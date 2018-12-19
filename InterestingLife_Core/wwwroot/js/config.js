@@ -4,6 +4,7 @@
         ko: "../js/knockout",
         jquery: "../js/jquery",
         models: "../js/models/",
-        remote: "../js/jshelpers/remote"
+        remote: "../js/jshelpers/remote",
+        text: "../js/text"
     }
 }); 
