@@ -1,8 +1,8 @@
 ﻿define(['ko', 'jquery', 'remote', 'models/cell-model'], function (ko, $, remote, Cell) {
-   
 
-        var viewModel = function() {
-            var self = this;
+
+    var viewModel = function () {
+        var self = this;
         self.remote = new remote();
         self.title = ko.observable('ДУХОВНЫЙ ДНЕВНИК');
         self.id = ko.observable();
@@ -11,8 +11,8 @@
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
             return year + '-' + month;
-        }
-        self.currentDate = ko.observable(self.getCurrentDate());
+        };
+        self.selectedDate = ko.observable(self.getCurrentDate());
         self.table = ko.observableArray();
         var column = function () {
             this.cells = ko.observableArray();
@@ -21,21 +21,21 @@
 
 
 
-        self.valueToString = function (formElement) {
+        self.valueToString = function () {
             var str = "";
-            for (var i = 0; i < formElement.length; i++) {
-                if (i === 0 || i % 22 === 0) continue;
-                str += formElement[i].value + ';';
+            var tbl = self.table();
+            for (var j = 0; j < tbl.length; j++) {
+                for (var i = 0; i < tbl[j].cells().length; i++) {
+                    var cell = tbl[j].cells()[i].cell();
+                    str += cell + ";";
+                }
             }
             return str;
         }
-        self.createNewTable = function () {
 
-        }
-        self.saveNewValue = function (formElement) {
-            debugger;
-            var strValue = self.valueToString(formElement);
-            self.remote.post('/Diary/Save', { id: self.id(), str: strValue, date: self.currentDate() },
+        self.saveNewValue = function () {
+            var strValue = self.valueToString();
+            self.remote.post('/Diary/Save', { id: self.id(), str: strValue, date: self.selectedDate() },
                 function (result) {
                     self.id(result);
                 });
@@ -64,7 +64,7 @@
             }
         }
         self.getTable = function (evnt) {
-            var selectedDate = !!!evnt ? self.currentDate() : evnt.currentDate();
+            var selectedDate = !!!evnt ? self.selectedDate() : evnt.selectedDate();
             self.remote.get('/Diary/GetTableByDate', { date: selectedDate },
                 function (result) {
                     if (result === "not data") {
@@ -78,15 +78,15 @@
 
         self.getTable();
 
-    
+
     };
-    debugger;
-        ko.components.register('table-component',
-            {
-                viewModel: viewModel ,
-                template: { require:'text!/js/view/table-view-model.html' }
-            });
-   
+
+    ko.components.register('table-block',
+        {
+            viewModel: viewModel,
+            template: { require: 'text!/js/view/table-view-model.html' }
+        });
+
 });
 
 

@@ -29,9 +29,9 @@ namespace InterestingLife_Core.Controllers
         public IActionResult GetTableByDate(string date)
         { 
             var userId =  _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
-            var tableStringValue = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date) 
+            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date) 
                                                                               && x.UserId == userId);
-            if (tableStringValue != null) return Json(tableStringValue);
+            if (diary?.OneMonthStatistic != null) return Json(diary);
             return Json("not data");
         }
 

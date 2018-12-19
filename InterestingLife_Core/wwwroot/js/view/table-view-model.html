@@ -1,23 +1,49 @@
 ﻿<style>
-      .cell {
-          width: 21px;
-          height: 21px;
-          margin-left: 0;
-          text-align: center;
-      }
-  </style>
+    .column {
+        width: 22px;
+        margin-bottom: 15px;
+        border: 1px black;
+        float: left;
+    }
+        .column.active {
+            background: rgba(0, 0, 0, 0.14);
+            color: azure;
+        }
+     .cell {
+         width: 21px;
+         height: 21px;
+         margin-left: 0;
+         margin-bottom: 1px;
+         text-align: center;
+         border: none;
+         background: rgba(0, 0, 0, .5);
+         color: beige;
+     }
+    .cell.date {
+        background: aqua;
+        color: brown
+    }
+    .date.active {
+        background: red;
+        color: azure;
+    }
+</style>
 
-<h2 data-bind="text: title"></h2>
+<!--<h2 data-bind="text: title"></h2>-->
 
-<input type="month" class="form-control" required data-bind="value: currentDate, event: { change: getTable }"/>
-<form data-bind="submit: saveNewValue">
-    <!--ko foreach: table()-->
-    <div class="alert-info" style="width: 22px; margin-bottom: 15px; border: 1px black; float: left;">
-        <input type="text" class="cell" data-bind="value: $index() + 1" />
-        <!--ko foreach: cells()-->
-        <input  type="text" name="cell" class="cell" data-bind="textInput: $data.cell"/>
+
+<div>
+    <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }"/>
+    <input type="submit" class="" data-bind="click: saveNewValue" value="save"/>
+</div>
+    <form data-bind="submit: saveNewValue">
+        <!--ko foreach: table()-->
+        <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
+            <input type="text" class="cell date" readonly data-bind="value: $index() + 1, css: {active: $index() + 1 == new Date().getDate()}"/>
+            <!--ko foreach: cells()-->
+            <input type="text" name="cell" class="cell" data-bind="textInput: $data.cell"/>
+            <!--/ko-->
+        </div>
         <!--/ko-->
-    </div>
-    <!--/ko-->
-    <input type="submit" value="save"/>
-</form>
+    </form>
+
