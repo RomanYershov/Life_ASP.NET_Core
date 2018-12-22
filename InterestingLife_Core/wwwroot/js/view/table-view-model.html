@@ -5,51 +5,68 @@
         border: 1px black;
         float: left;
     }
+
         .column.active {
             background: rgba(0, 0, 0, 0.14);
             color: azure;
         }
-     .cell {
-         width: 21px;
-         height: 21px;
-         margin-left: 0;
-         margin-bottom: 1px;
-         text-align: center;
-         border: none;
-         background: rgba(0, 0, 0, .36);
-         color: beige;
-         border-radius: 3.5px;
-     }
-        .date {
-            background: aqua;
-            color: black;
-            transition: all .4s;
+
+    .cell {
+        width: 21px;
+        height: 21px;
+        margin-left: 0;
+        margin-bottom: 1px;
+        text-align: center;
+        border: none;
+        background: rgba(0, 0, 0, .36);
+        color: beige;
+        border-radius: 3.5px;
+    }
+
+    .date {
+        background: aqua;
+        color: black;
+        transition: all .4s;
+    }
+
+        .date.active {
+            background: red;
+            color: azure;
         }
-    .date.active {
-        background: red;
-        color: azure;
-    }
-    .date:hover {
-        transform: rotate(360deg);
-        /*border-radius: 10px;*/
-    }
+
+        .date:hover {
+            transform: rotate(360deg);
+            /*border-radius: 10px;*/
+        }
 </style>
 
 <!--<h2 data-bind="text: title"></h2>-->
-
-
-<div>
-    <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }"/>
-    <input type="submit" class="" data-bind="click: saveNewValue" value="save"/>
+<div class="alert alert-info">
+    <div>
+        <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
+        <input type="submit" class="" data-bind="click: saveNewValue" value="save" />
+    </div>
 </div>
-    <form data-bind="submit: saveNewValue">
-        <!--ko foreach: table()-->
-        <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
-            <input type="text" class="cell date" readonly data-bind="value: $index() + 1, css: {active: $index() + 1 == new Date().getDate()}"/>
-            <!--ko foreach: cells()-->
-            <input type="text" name="cell" class="cell" data-bind="textInput: $data.cell"/>
+<div class="row">
+    <div class="col-md-2">
+        <div data-bind="component:{name:  'description-list-block', params: {selectCellId: selectCellId}}"></div>
+    </div>
+    <div class="col-md-8">
+        <form data-bind="submit: saveNewValue">
+            <!--ko foreach: table()-->
+            <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
+                <input type="text" class="cell date" readonly data-bind="value: $index() + 1, css: {active: $index() + 1 == new Date().getDate()}" />
+                <!--ko foreach: cells()-->
+                <input type="text" name="cell" class="cell" data-bind="event: {focus:$component.hasFocusCell},attr:{id: $index() + 1}, textInput: $data.cell" />
+                <!--/ko-->
+            </div>
             <!--/ko-->
-        </div>
-        <!--/ko-->
-    </form>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <div data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}"></div>
+    </div>
+</div>
+
+
 

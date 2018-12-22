@@ -61,9 +61,12 @@ namespace InterestingLife_Core.Controllers
             }
             else
             {
-                diary.OneMonthStatistic = str;
-                _applicationDb.Update(diary);
-                _applicationDb.SaveChanges();
+                if (!diary.OneMonthStatistic.Contains(str))
+                {
+                    diary.OneMonthStatistic = str;
+                    _applicationDb.Update(diary);
+                    _applicationDb.SaveChanges();
+                }
                 return Json(diary.Id);
             }
            

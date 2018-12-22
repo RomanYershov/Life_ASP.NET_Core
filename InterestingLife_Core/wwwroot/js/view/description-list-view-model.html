@@ -1,0 +1,12 @@
+﻿<style>
+    .desc {
+        border: 1px solid aquamarine;
+    }
+    .active-description {
+        transform: scale(1.02);
+        color: aliceblue;
+    }
+</style>
+<!--ko foreach: description-->
+<div class="desc" data-bind="text: $data, attr:{id: $index() + 1}, css: {'active-description': $parent.cellId() == $element.id}"></div>
+<!--/ko-->
