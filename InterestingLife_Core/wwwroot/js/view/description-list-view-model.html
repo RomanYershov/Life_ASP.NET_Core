@@ -1,12 +1,54 @@
 ﻿<style>
-    .desc {
-        border: 1px solid aquamarine;
-    }
     .active-description {
         transform: scale(1.02);
+        background: rgba(0, 0, 0, .5);
+        border-radius: 8px;
         color: aliceblue;
     }
+
+    .desc_item {
+        height: 21px;
+        margin: .5px 0 .5px 0;
+        border-bottom: .5px solid rgba(0, 0, 0, .5);
+        ;
+        color: wheat;
+        font-style: italic;
+        font-family: Calibri;
+        font-size: 17px;
+    }
+
+    .zap {
+        font-weight: 900;
+        font-style: normal;
+        /*font-family: Calibri;*/
+        color: black;
+    }
 </style>
+
+
+<div class="col-md-12 desc_item" ></div>
+<div class="col-md-12 desc_item" id="1" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Не навреди:</span> В мыслях</div>
+<div class="col-md-12 desc_item" id="2" data-bind="css: {'active-description': cellId() == $element.id}">В словах</div>
+<div class="col-md-12 desc_item" id="3" data-bind="css: {'active-description': cellId() == $element.id}">В поступках</div>
+<div class="col-md-12 desc_item" id="4" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Правдивость:</span> Ложь</div>
+<div class="col-md-12 desc_item" id="5" data-bind="css: {'active-description': cellId() == $element.id}">Хитрость</div>
+<div class="col-md-12 desc_item" id="6" data-bind="css: {'active-description': cellId() == $element.id}">Лицемерие</div>
+<div class="col-md-12 desc_item" id="7" data-bind="css: {'active-description': cellId() == $element.id}">Обман</div>
+<div class="col-md-12 desc_item" id="8" data-bind="css: {'active-description': cellId() == $element.id}">Противозаконное приобретение</div>
+<div class="col-md-12 desc_item" id="9" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Целомудрие:</span> В мыслях</div>
+<div class="col-md-12 desc_item" id="10" data-bind="css: {'active-description': cellId() == $element.id}">В словах</div>
+<div class="col-md-12 desc_item" id="11" data-bind="css: {'active-description': cellId() == $element.id}">В поступках</div>
+<div class="col-md-12 desc_item" id="12" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Смирение:</span> Гордость знанием</div>
+<div class="col-md-12 desc_item" id="13" data-bind="css: {'active-description': cellId() == $element.id}">Гордость имуществом</div>
+<div class="col-md-12 desc_item" id="14" data-bind="css: {'active-description': cellId() == $element.id}">Гордость влиянием</div>
+<div class="col-md-12 desc_item" id="15" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Питание</span></div>
+<div class="col-md-12 desc_item" id="16" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Сева:</span> Физическая</div>
+<div class="col-md-12 desc_item" id="17" data-bind="css: {'active-description': cellId() == $element.id}">Финансовая</div>
+<div class="col-md-12 desc_item" id="18" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Попусту растраченное время</span></div>
+<div class="col-md-12 desc_item" id="19" data-bind="css: {'active-description': cellId() == $element.id}"><span class="zap">Медитация:</span> На свет</div>
+<div class="col-md-12 desc_item" id="20" data-bind="css: {'active-description': cellId() == $element.id}">На звук</div>
+<div class="col-md-12 desc_item" id="21" data-bind="css: {'active-description': cellId() == $element.id}">Итого</div>
+<!--<div class="col-md-12 desc_item"></div>-->
 <!--ko foreach: description-->
-<div class="desc" data-bind="text: $data, attr:{id: $index() + 1}, css: {'active-description': $parent.cellId() == $element.id}"></div>
+<!--<div class="col-md-12 desc_item" ><span class="zap"></span><span  data-bind="text: $data, attr:{id: $index() + 1}, css: {'active-description': $parent.cellId() == $element.id}">Не навреди:</span></div>-->
 <!--/ko-->

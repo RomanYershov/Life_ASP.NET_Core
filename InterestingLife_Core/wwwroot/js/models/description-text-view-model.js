@@ -4,11 +4,13 @@
 
         var desc = new Description();
 
-        self.text = desc.descriptionText();
+        self.text = ko.observable();
         params.selectCellId.subscribe(function (newValue) {
-            debugger;
-           
+            $.each(desc.descriptionText, function (key, val) {
+                if(newValue === key)
+                self.text(val);
+            });
+
         });
-        debugger;
     }
 });
