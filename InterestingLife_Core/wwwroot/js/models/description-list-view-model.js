@@ -1,9 +1,9 @@
-﻿define(['ko', 'models/description', 'models/table-model'], function (ko, Description, table) {
+﻿define(['ko'], function (ko) {
     var descriptionModel = function (params) {
         var self = this;
-        var descriptionModel = new Description();
+        //var descriptionModel = new Description();
        
-        self.description = descriptionModel.list();
+        //self.description = descriptionModel.list();
 
         self.cellId = ko.observable();
         params.selectCellId.subscribe(function (newValue) {

@@ -18,6 +18,11 @@
                 viewModel: { require: 'models/description-text-view-model' },
                 template: { require: 'text!/js/view/description-text-view-model.html'}
             });
+        ko.components.register('time-widget',
+            {
+                viewModel: { require: 'models/time-view-model' },
+                template: {require: 'text!/js/view/time-view-model.html'}
+            });
     }
 });
 

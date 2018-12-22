@@ -2,16 +2,18 @@
     .text-block {
         word-wrap: break-word;
         text-align: center;
-        color: #d9edf7;
+        color: #e4f2ff;
         height: 34em;
-        background: rgba(0, 0, 0, 0.41);
+        background: rgba(58, 77, 97, 0.05);
         border-radius: 10px 10px 10px 10px;
         margin-left: 25px;
-        padding: 18px;
+        padding: 5px 10px;
         box-shadow: 0 0 9px 0px black;
+        /* overflow: auto; */
     }
 </style>
 
 <div class="text-block">
+    <p class="glyphicon glyphicon-time" style="color: #00BCD4;" data-bind="component: {name: 'time-widget'}"></p>
     <p data-bind="text: text"></p>
 </div>

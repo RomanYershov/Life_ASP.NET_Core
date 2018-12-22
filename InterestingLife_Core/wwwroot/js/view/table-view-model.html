@@ -2,6 +2,7 @@
     .table-box {
         border: 1px solid black;
     }
+
     .column {
         width: 22px;
         margin-bottom: 15px;
@@ -9,10 +10,10 @@
         float: left;
     }
 
-    .column.active {
-        background: rgba(0, 0, 0, 0.14);
-        color: azure;
-    }
+        .column.active {
+            background: rgba(0, 0, 0, 0.14);
+            color: azure;
+        }
 
     .cell {
         width: 21px;
@@ -27,20 +28,21 @@
     }
 
     .date {
-        background: aqua;
+        background: #00BCD4;
         color: black;
         transition: all .4s;
     }
 
-    .date.active {
-        background: red;
-        color: azure;
-    }
+        .date.active {
+            background: #f44336;
+            color: azure;
+        }
 
-    .date:hover {
-        transform: rotate(360deg);
-        /*border-radius: 10px;*/
-    }
+        .date:hover {
+            transform: rotate(360deg);
+            /*border-radius: 10px;*/
+        }
+
     .alert-info {
         color: #333;
         background-color: rgba(0, 0, 0, .5);
@@ -49,17 +51,18 @@
 </style>
 
 <!--<h2 data-bind="text: title"></h2>-->
-<div class="alert alert-info">
-    <div>
+<div class="alert alert-info row">
+    <div class="col-md-4">
         <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
         <input type="submit" class="" data-bind="click: saveNewValue" value="save" />
     </div>
+    <div class="col-md-6" style="display: inline-block; color: wheat;" data-bind="component: {name: 'time-widget'}"></div>
 </div>
 <div class="row">
     <div class="col-md-3">
         <div data-bind="component:{name:  'description-list-block', params: {selectCellId: selectCellId}}"></div>
     </div>
-    <div class="col-md-pull-10" >
+    <div class="col-md-pull-10">
         <div class="">
             <!--ko foreach: table()-->
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
@@ -71,9 +74,9 @@
             <!--/ko-->
         </div>
     </div>
-    <div class="col-md-2" style="padding: 0">
-        <div data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}"></div>
-    </div>
+   
+        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0"></div>
+   
 </div>
 
 
