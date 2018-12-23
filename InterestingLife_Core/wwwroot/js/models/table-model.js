@@ -46,8 +46,8 @@
        
         var getTotalTime = function () {
             var table = self.table();
+            var soundCell, ligthCell, totalCell;
             for (var i = 0; i < table.length; i++) {
-                var soundCell, ligthCell, totalCell;
                 for (var j = 0; j < table[i].cells().length; j++) {
                     if (j < 18) continue;
                     if (j == 18) {

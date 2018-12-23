@@ -7,7 +7,6 @@
                 var par1 = !!!params[1]() ? 0 : params[1]();
                 var par2 = val == '' ? 0 : val;
                 var summ = (parseFloat(par1) + parseFloat(par2)).toString();
-                debugger;
                 params[0](summ == '0' ? '' : summ);
             });
         }
