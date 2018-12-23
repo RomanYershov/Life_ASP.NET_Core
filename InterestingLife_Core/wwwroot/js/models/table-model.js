@@ -3,7 +3,7 @@
         var self = this;
         self.remote = new remote();
         self.title = ko.observable('ДНЕВНИК');
-        self.selectCellId = ko.observable(432);
+        self.selectCellId = ko.observable();
         self.hasFocusCell = function (cell, element) {
             var id = element.target.id;
             self.selectCellId(id);
@@ -30,8 +30,7 @@
             for (var j = 0; j < tbl.length; j++) {
                 for (var i = 0; i < tbl[j].cells().length; i++) {
                     var cell = tbl[j].cells()[i].cell();
-                    str += (!!!cell ? '' : cell)  + ";" ;
-                    debugger;
+                    str += (!!!cell ? '' : cell) + ";";
                 }
             }
             return str;
@@ -44,6 +43,27 @@
                     self.id(result);
                 });
         }
+       
+        var getTotalTime = function () {
+            var table = self.table();
+            for (var i = 0; i < table.length; i++) {
+                var soundCell, ligthCell, totalCell;
+                for (var j = 0; j < table[i].cells().length; j++) {
+                    if (j < 18) continue;
+                    if (j == 18) {
+                        soundCell = table[i].cells()[j].cell;
+                    }
+                    if (j == 19) {
+                        ligthCell = table[i].cells()[j].cell;
+                    }
+                    if (j == 20) {
+                        totalCell = table[i].cells()[j].cell;
+                        soundCell.extend({ forCalcSummEx: [totalCell, ligthCell]});
+                        ligthCell.extend({ forCalcSummEx: [totalCell, soundCell]});
+                    }
+                }
+            }
+        }
 
         var fillCells = function (arrValue) {
             self.table([]);
@@ -55,7 +75,12 @@
                 }
                 col.cells.push(new Cell(arrValue[i]));
             }
+            getTotalTime();
         };
+
+
+
+
         var fakeFillCells = function () {
             self.table([]);
             var col = new column();
@@ -66,7 +91,9 @@
                 }
                 col.cells.push(new Cell());
             }
+            getTotalTime();
         }
+
         self.getTable = function (evnt) {
             var selectedDate = !!!evnt ? self.selectedDate() : evnt.selectedDate();
             self.remote.get('/Diary/GetTableByDate', { date: selectedDate },
