@@ -8,11 +8,13 @@
         margin-bottom: 15px;
         border: 1px black;
         float: left;
+        font-size: 11px;
     }
 
         .column.active {
             background: rgba(0, 0, 0, 0.14);
             color: azure;
+            box-shadow: 1px -1px 11px 0px black;
         }
 
     .cell {
@@ -22,20 +24,23 @@
         margin-bottom: 1px;
         text-align: center;
         border: none;
-        background: rgba(0, 0, 0, .36);
-        color: beige;
-        border-radius: 3.5px;
+        background: rgba(0, 0, 0, 0.58);
+        color: #ffd505;
+        border-radius: 0.5px;
     }
 
     .date {
-        background: #00BCD4;
-        color: black;
+        background: rgba(0, 0, 0, 0.55);
+        color: #dca7a6;
         transition: all .4s;
+        font-size: 12px;
+        box-shadow: inset 0 0 1px 1px black;
     }
 
         .date.active {
-            background: #f44336;
-            color: azure;
+            background: #FF5252;
+            color: black;
+            box-shadow: inset 0 0 2px 1px black;
         }
 
         .date:hover {
@@ -54,7 +59,7 @@
 <div class="alert alert-info row">
     <div class="col-md-4">
         <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
-        <input type="submit" class="" data-bind="click: saveNewValue" value="save" />
+        <input type="submit" class="btn btn-sm" style="background: #FF5252;" data-bind="click: saveNewValue" value="save" />
     </div>
     <div class="col-md-6" style="display: inline-block; color: wheat;" data-bind="component: {name: 'time-widget'}"></div>
 </div>
@@ -62,7 +67,7 @@
     <div class="col-md-3">
         <div data-bind="component:{name:  'description-list-block', params: {selectCellId: selectCellId}}"></div>
     </div>
-    <div class="col-md-pull-10">
+    <div class="col-md-pull-10" style="z-index: 0">
         <div class="">
             <!--ko foreach: table()-->
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
@@ -75,7 +80,7 @@
         </div>
     </div>
    
-        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0"></div>
+        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0;z-index: 9999"></div>
    
 </div>
 

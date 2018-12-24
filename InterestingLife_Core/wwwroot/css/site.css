@@ -10,7 +10,11 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    background: #485561;
+    background: #3F51B5;
+    background-image: url(/images/Nature-Full-HD-Wallpaper-Background.jpeg);
+    background-size: cover;
+
+   
 }
 
 /* Carousel */
