@@ -41,6 +41,7 @@
             self.remote.post('/Diary/Save', { id: self.id(), str: strValue, date: self.selectedDate() },
                 function (result) {
                     self.id(result);
+                    $('#message').animate({ opacity: 1}, 700);
                 });
         }
        

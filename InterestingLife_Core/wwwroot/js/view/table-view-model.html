@@ -48,26 +48,36 @@
             /*border-radius: 10px;*/
         }
 
-    .alert-info {
+    .top-panel {
         color: #333;
         background-color: rgba(0, 0, 0, .5);
         border-color: #fcf8e3;
     }
+    .success-message {
+        opacity: 1;
+        display: inline-block;
+        background: #71cc75;
+        color: black;
+        padding: 5px 18px 5px 18px;
+        border-radius: 4px;
+        /*box-shadow: 0 0 18px 0px black;*/
+    }
 </style>
 
 <!--<h2 data-bind="text: title"></h2>-->
-<div class="alert alert-info row">
+<div class="alert alert-info row top-panel">
     <div class="col-md-4">
         <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
         <input type="submit" class="btn btn-sm" style="background: #FF5252;" data-bind="click: saveNewValue" value="save" />
     </div>
-    <div class="col-md-6" style="display: inline-block; color: wheat;" data-bind="component: {name: 'time-widget'}"></div>
+    <div class="col-md-3 success-message"> <span  id="message" style="opacity: 0">Изменения сохранены ...</span><span style=" color: wheat;" data-bind="component: {name: 'time-widget'}"></span></div>
+   
 </div>
 <div class="row">
     <div class="col-md-3">
         <div data-bind="component:{name:  'description-list-block', params: {selectCellId: selectCellId}}"></div>
     </div>
-    <div class="col-md-pull-10" style="z-index: 0">
+    <div class="col-md-pull-10" style="z-index: 9999">
         <div class="">
             <!--ko foreach: table()-->
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
@@ -80,7 +90,7 @@
         </div>
     </div>
    
-        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0;z-index: 9999"></div>
+        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0;"></div>
    
 </div>
 
