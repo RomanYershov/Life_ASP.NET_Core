@@ -39,7 +39,7 @@ namespace InterestingLife_Core
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -59,10 +59,11 @@ namespace InterestingLife_Core
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
 
+            app.UseDeveloperExceptionPage();
             app.UseAuthentication();
-
+           // app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

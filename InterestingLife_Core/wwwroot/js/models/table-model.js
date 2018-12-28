@@ -41,7 +41,14 @@
             self.remote.post('/Diary/Save', { id: self.id(), str: strValue, date: self.selectedDate() },
                 function (result) {
                     self.id(result);
-                    $('#message').animate({ opacity: 1}, 700);
+                    $('.success-message').animate({
+                        opacity: 1
+                    }, 400, function () {
+                        setTimeout(function() {
+                            $('.success-message').animate({ opacity: 0 }, 100);
+                        }, 3500);
+                        
+                    });
                 });
         }
        
@@ -59,6 +66,7 @@
                     }
                     if (j == 20) {
                         totalCell = table[i].cells()[j].cell;
+                        //totalCell.extend({ totalTimeCellExt: ''});
                         soundCell.extend({ forCalcSummEx: [totalCell, ligthCell]});
                         ligthCell.extend({ forCalcSummEx: [totalCell, soundCell]});
                     }
@@ -74,7 +82,9 @@
                     col = new column();
                     self.table.push(col);
                 }
-                col.cells.push(new Cell(arrValue[i]));
+                var cell = new Cell(arrValue[i]);
+                cell.cell.extend({ totalTimeCellExt: i });
+                col.cells.push(cell);
             }
             getTotalTime();
         };
@@ -90,7 +100,9 @@
                     col = new column();
                     self.table.push(col);
                 }
-                col.cells.push(new Cell());
+                var cell = new Cell();
+                cell.cell.extend({ totalTimeCellExt: i });
+                col.cells.push(cell);
             }
             getTotalTime();
         }

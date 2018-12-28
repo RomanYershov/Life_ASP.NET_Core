@@ -54,13 +54,16 @@
         border-color: #fcf8e3;
     }
     .success-message {
-        opacity: 1;
+        opacity: 0;
         display: inline-block;
-        background: #71cc75;
+        background: #62edff;
         color: black;
         padding: 5px 18px 5px 18px;
         border-radius: 4px;
         /*box-shadow: 0 0 18px 0px black;*/
+    }
+    .total-cell {
+        color: #62edff;
     }
 </style>
 
@@ -68,9 +71,9 @@
 <div class="alert alert-info row top-panel">
     <div class="col-md-4">
         <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
-        <input type="submit" class="btn btn-sm" style="background: #FF5252;" data-bind="click: saveNewValue" value="save" />
+        <input type="submit" class="btn btn-sm" style="background: #FF5252;" data-bind="click: saveNewValue" value="Сохранить изменения" />
     </div>
-    <div class="col-md-3 success-message"> <span  id="message" style="opacity: 0">Изменения сохранены ...</span><span style=" color: wheat;" data-bind="component: {name: 'time-widget'}"></span></div>
+    <div class="col-md-3 success-message"> <span  id="message">Изменения сохранены ...</span><span style=" color: wheat;" data-bind="component: {name: 'time-widget'}"></span></div>
    
 </div>
 <div class="row">
@@ -83,7 +86,7 @@
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
                 <input type="text" class="cell date" readonly data-bind="value: $index() + 1, css: {active: $index() + 1 == new Date().getDate()}" />
                 <!--ko foreach: cells()-->
-                <input type="text" name="cell" class="cell" data-bind="event: {focus:$component.hasFocusCell},attr:{id: $index() + 1}, textInput: $data.cell" />
+                <input type="text" name="cell" class="cell" data-bind="event: {focus:$component.hasFocusCell},attr:{id: $index() + 1}, textInput: $data.cell, css:{'total-cell': $data.cell.isTotalTimeCell}" />
                 <!--/ko-->
             </div>
             <!--/ko-->
