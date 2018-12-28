@@ -37,7 +37,7 @@
         }
 
         self.cell.subscribe(function (newVal) {
-            var isWord = newVal.match(/[a-zA-Zа-яА-Я]/ig);
+            var isWord = newVal.match(/[a-zA-Zа-яА-Я*\/\\:;\|{}()\-=_,&^%$#@!~`<>?\"']/ig);
             self.cell(isWord != null ? '' : newVal);
         });
     }
