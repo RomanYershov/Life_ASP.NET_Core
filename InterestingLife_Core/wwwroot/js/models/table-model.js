@@ -13,8 +13,8 @@
             var date = new Date();
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
-            return year + '-' + month;
-        };
+            return year + '-' + (month.length == 2 ? month : '0' + month);
+        }; 
         self.selectedDate = ko.observable(self.getCurrentDate());
         self.table = ko.observableArray();
         var column = function () {
