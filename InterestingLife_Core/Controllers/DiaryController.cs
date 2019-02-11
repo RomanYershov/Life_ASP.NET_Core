@@ -29,7 +29,7 @@ namespace InterestingLife_Core.Controllers
         public IActionResult GetTableByDate(string date)
         { 
             var userId =  _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
-            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date) 
+            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date ?? $"{DateTime.Now.Year}-{DateTime.Now.Month}") 
                                                                               && x.UserId == userId);
             if (diary?.OneMonthStatistic != null) return Json(diary);
             return Json("not data");

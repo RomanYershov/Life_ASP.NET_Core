@@ -29,6 +29,10 @@ namespace InterestingLife_Core.Controllers
             return View();
         }
 
+        public IActionResult Songs()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
