@@ -1,7 +1,20 @@
 ﻿
-@{
-    ViewData["Title"] = "Songs";
+
+
+
+<songs-list-block></songs-list-block>
+
+
+
+@section Scripts
+{ 
+    <script>
+        require(['../js/config'], function () {
+            require(['ko', 'jquery','models/songs-components-register'], function (ko, $,components) {
+                $(document).ready(function () {
+                    ko.applyBindings(new components());
+                });
+            });
+        });
+    </script>
 }
-
-<h2>Songs</h2>
-

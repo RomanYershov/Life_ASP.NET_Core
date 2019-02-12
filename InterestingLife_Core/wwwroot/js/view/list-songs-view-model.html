@@ -1,0 +1,46 @@
+﻿<style>
+    .name-songs-box {
+        background: #0000004d;
+        color: bisque;
+        height: 600px;
+        border: 1px solid #ff9800;
+        margin-top: 14px;
+    }
+    .list-songs {
+        text-align: center;
+        background: transparent;
+    }
+        .list-songs:hover {
+            background: #ff9800;
+            transition: all 0.4s;
+            color: black;
+            cursor: pointer;
+        }
+    .song-lyrics {
+        text-align: center;
+        white-space: pre-wrap;
+    }
+</style>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="name-songs-box">
+            <!--ko foreach: songs-->
+            <div class="list-songs" data-bind="text:name, click: $component.getSongById"></div>
+            <!--/ko-->
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="name-songs-box">
+            <div style="text-align: center; background: #ff9800;"><h3 data-bind="text:name"></h3></div>
+            <div class="song-lyrics" data-bind="text:lyrics"></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="name-songs-box">
+            <div class="list-songs" data-bind="text:song().lyrics"></div>
+        </div>
+    </div>
+</div>
