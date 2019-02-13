@@ -1,10 +1,9 @@
 ﻿<style>
     .name-songs-box {
-        background: #0000004d;
+        background: #314817d1;
         color: bisque;
         height: 600px;
         border: 1px solid #ff9800;
-        margin-top: 14px;
     }
     .list-songs {
         text-align: center;
@@ -20,11 +19,29 @@
         text-align: center;
         white-space: pre-wrap;
     }
+    .categories-box {
+        background-color: #30363a;
+        text-align: center;
+        color: #c1beb9;
+    }
+    .list-categories {
+        color: #3a3933
+    }
+        .list-categories:hover {
+            transition: all 0.4s;
+            color: antiquewhite;
+            cursor: pointer;
+        }
 </style>
 
 
 
 <div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info categories-box" data-bind="foreach: categories">
+             <div class="list-categories badge" data-bind="text:name, click:$component.getSongsByCategory"></div>
+        </div>
+    </div>
     <div class="col-md-3">
         <div class="name-songs-box">
             <!--ko foreach: songs-->
@@ -34,13 +51,14 @@
     </div>
     <div class="col-md-6">
         <div class="name-songs-box">
-            <div style="text-align: center; background: #ff9800;"><h3 data-bind="text:name"></h3></div>
+            <div style="text-align: center; background: #ff9800;">
+                <h3 data-bind="text:name"></h3></div>
             <div class="song-lyrics" data-bind="text:lyrics"></div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="name-songs-box">
-            <div class="list-songs" data-bind="text:song().lyrics"></div>
+            <div class="list-songs" data-bind=""></div>
         </div>
     </div>
 </div>
