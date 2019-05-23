@@ -24,14 +24,39 @@
                 var drob = summ % 60;
                 var n1 = (summ - drob) / 60;
                 var res = (n1 + ':' + drob).toString();
+               
+                var teee = params[0];
+                teee.extend({ statusColor: res == '0' ? '' : res});
                 params[0](res == '0' ? '' : res);
             });
         }
-
+        ko.extenders.statusColor = function (target, params) {
+            var el = this.document.activeElement.nextElementSibling;
+            if (el.id == '20')
+                el = el.nextElementSibling;
+           
+            if (parseInt(params) < 3)
+                el.style.color = '#ff5252';
+            if (parseInt(params) >= 3)
+                el.style.color = '#62edff';
+        }
         ko.extenders.totalTimeCellExt = function (target, params) {
+            
             var tar = target();
             var hasTotalCell = ((params + 1) % 21 == 0);
             target.isTotalTimeCell = ko.observable(hasTotalCell);
+            target.goodResultColor = ko.observable(false);
+            target.badResultColor = ko.observable(false);
+            if (hasTotalCell) {
+                debugger;
+                var val = !!!tar ? 0 : tar.split(':')[0];
+                if (parseInt(val) >= 3) {
+                    target.goodResultColor(true);
+                }
+                else {
+                    target.badResultColor(true);
+                }
+            }
             
 
         }

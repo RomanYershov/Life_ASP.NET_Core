@@ -111,7 +111,6 @@
             var selectedDate = !!!evnt ? self.selectedDate() : evnt.selectedDate();
             self.remote.get('/Diary/GetTableByDate', { date: selectedDate },
                 function (result) {
-                    debugger;
                     if (result === "not data") {
                         fakeFillCells();
                         return;

@@ -25,7 +25,7 @@
         text-align: center;
         border: none;
         background: rgba(0, 0, 0, 0.58);
-        color: #ffd505;
+        color: #ffc107;
         border-radius: 0.5px;
     }
 
@@ -65,6 +65,12 @@
     .total-cell {
         color: #62edff;
     }
+    .good-result {
+        color: #62edff;
+    }
+    .bad-result {
+        color: #ff5252;
+    }
     #message:before {
         content: '';
         background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTcuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDM3OS43NzcgMzc5Ljc3NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzc5Ljc3NyAzNzkuNzc3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxwYXRoIGQ9Ik0zNjYuMzE0LDk3Ljc0OWMtMC4xMjktMS4xNDQtMS41NDQtMS4xNDQtMi4zODktMS4xNDRjLTYuNzU4LDAtMzcuNDk5LDQuOTQyLTYyLjgyLDEzLjA4MSAgYy0xLjYzOCwwLjUyNy0yLjkyMywwLjc4My0zLjkyOCwwLjc4M2MtMS45NjEsMC0yLjcyMi0wLjkyOC00LjI1NC0zLjAyOWMtMS44NDgtMi41MzMtNC4zNzktNi4wMDEtMTEuMTc0LTguOTE0ICBjLTIuODA0LTEuMjAyLTYuMDU3LTEuODEyLTkuNjY3LTEuODEyYy0xNC4yMjEsMC0zMi4xOTksOS4zMTItNDIuNzQ5LDIyLjE0MmMtMC4wNjYsMC4wOC0wLjEwMywwLjA5Ni0wLjEwNywwLjA5NiAgYy0wLjkxMywwLTQuMDg5LTMuNTY0LTkuNTc3LTE3LjA2MmMtNC4wMTMtOS44Ny04LjEzNi0yMi4zNjgtMTAuNTA0LTMxLjg0MmMtMy41NTMtMTQuMjEyLTEzLjg3OC0zNC4xOTUtMjAuNzEtNDcuNDE3ICBjLTIuOTE1LTUuNjQyLTUuMjE4LTEwLjA5OC01Ljc5Ny0xMS44MzZjLTAuNDQ3LTEuMzM5LTEuMTUtMi4wMTktMi4wOTEtMi4wMTljLTAuNjA0LDAtMS4xODQsMC4zLTEuNzczLDAuOTE3ICBjLTYuNjU4LDYuOTgzLTIwLjI2OSw2NS4yNTMtMTkuNDE3LDgzLjEzMmMwLjY5OSwxNC42ODIsMTIuMjkxLDI0LjYxLDE3Ljg2MSwyOS4zODFjMC42NTksMC41NjQsMS4zNjMsMS4xNjcsMS45MTEsMS42NyAgYy0yLjk2NC0xLjA2LTkuMTcxLTYuMTM3LTE3LjQwNi0xMi44NzNjLTExLjg4MS05LjcxOC0yOS44MzYtMjQuNDAzLTU0LjE1Mi00MC40NTNjLTM0LjA2NC0yMi40ODQtNTUuODg1LTQ0Ljc3LTY4LjkyMi01OC4wODQgIEMyOS45NjQsMy41OTksMjYuMzM4LDAsMjMuNzkxLDBjLTAuNjA1LDAtMS43MDcsMC4yMjctMi4yNzgsMS43NWMtMi45MjQsNy43OTgsMC43NTQsODguNDE5LDM3LjA3NCwxMzIuMDAyICBjMjAuMjc5LDI0LjMzNSw0Ni4xMzYsMzYuODI5LDYzLjI0Niw0NS4wOTdjOS44NTksNC43NjQsMTcuNjQ3LDguNTI3LDE4Ljg1MSwxMi4wNThjMC4yNzMsMC44MDMsMC4yMDMsMS41NzMtMC4yMjMsMi40MjUgIGMtMS42MTksMy4yMzgtNC40MzksNy4xOTMtOC4wMTEsMTIuMjAyYy05LjgyOSwxMy43ODMtMjQuNjgyLDM0LjYxMy0zNS41NTUsNjkuMzM1Yy00Ljg4NiwxNS42MDEtNTUuOTYzLDcwLjI1My02OS4yNDcsODMuNTM3ICBjLTAuNjQ4LDAuNjQ4LTE1Ljg0NywxNS45MTctMTQuMDYsMjAuMjI5YzAuMTQyLDAuMzQ0LDAuNjEzLDEuMTQzLDEuOTA4LDEuMTQzYzMuMTc2LDAsMTEuNTU0LTUuNDQyLDI0LjkwMi0xNi4xOTUgIGMxNy40Ny0xNC4wNzMsMjkuMzk5LTI1Ljg0OCwzOC4xMS0zNC40NTJjOC40NzctOC4zNzQsMTMuNzg0LTEzLjU5NiwxNy40MjctMTQuMTYxYy0wLjMzMywxLjc4NC0xLjM4NSw2LjM2Ny00LjU3NiwxNy45MjYgIGMtMC4wNzcsMC4yNzktMC4yMzgsMC45MzgsMC4xMjcsMS40MThsMC4zNTUsMC41NzZoMC40OTVjMC4wMDEsMCwwLjAwMiwwLDAuMDAzLDBjMC43NzMsMCwxLjE3Mi0wLjYxOCw0LjUzLTQuNzg2ICBjMTAuMjQ0LTEyLjcxNCw0MS40MTctNTEuNTYxLDg0LjcyMi02MC4wNjdjMjUuMzc2LTQuOTg1LDU2Ljg4Ni0yOC41MTksNjguMDA4LTYzLjg1NGMxNi44MjItNTMuNDM5LDMwLjkwMi04Ny4wNTYsMTA1LjE3Ni0xMDQuMDgxICBDMzY2LjUwMiw5OS40MTMsMzY2LjQyOCw5OC43NTEsMzY2LjMxNCw5Ny43NDl6IiBmaWxsPSIjMDAwMDAwIi8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
@@ -90,7 +96,7 @@
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
                 <input type="text" class="cell date" readonly data-bind="value: $index() + 1, css: {active: $index() + 1 == new Date().getDate()}" />
                 <!--ko foreach: cells()-->
-                <input type="text" name="cell" class="cell" data-bind="event: {focus:$component.hasFocusCell},attr:{id: $index() + 1}, textInput: $data.cell, css:{'total-cell': $data.cell.isTotalTimeCell}" />
+                <input type="text" name="cell" class="cell" data-bind="event: {focus:$component.hasFocusCell},attr:{id: $index() + 1}, textInput: $data.cell, css:{'total-cell': $data.cell.isTotalTimeCell, 'good-result': $data.cell.goodResultColor, 'bad-result': $data.cell.badResultColor}" />
                 <!--/ko-->
             </div>
             <!--/ko-->
