@@ -63,13 +63,16 @@
         /*box-shadow: 0 0 18px 0px black;*/
     }
     .total-cell {
-        color: #62edff;
+        background-color: #2196F3;
+        color: whitesmoke;
     }
     .good-result {
-        color: #62edff;
+        background-color: #2196F3;
+        color: whitesmoke;
     }
     .bad-result {
-        color: #ff5252;
+        background-color: #ff5252;
+        color: whitesmoke;
     }
     #message:before {
         content: '';
@@ -81,7 +84,7 @@
 <div class="alert alert-info row top-panel">
     <div class="col-md-4">
         <input type="month" class="input-group-sm" required data-bind="value: selectedDate, event: { change: getTable }" />
-        <input type="submit" class="btn btn-sm" style="background: greenyellow;" data-bind="click: saveNewValue" value="Сохранить изменения" /> 
+        <input type="submit" class="btn btn-sm" style="background: #8282af; color: whitesmoke;" data-bind="click: saveNewValue" value="Сохранить изменения" /> 
     </div>
     <div class="col-md-3 success-message"> <span  id="message">Изменения сохранены ...</span></div>
    
@@ -90,7 +93,7 @@
     <div class="col-md-3">
         <div data-bind="component:{name:  'description-list-block', params: {selectCellId: selectCellId}}"></div>
     </div>
-    <div class="col-md-pull-10" style="z-index: 9999">
+    <div class="col-md-pull-10" style="z-index: 9999; border: 4px #ff5252">
         <div class="">
             <!--ko foreach: table()-->
             <div class="column" data-bind="css: {active: $index() + 1 == new Date().getDate()}">
@@ -102,9 +105,7 @@
             <!--/ko-->
         </div>
     </div>
-   
         <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0;"></div>
-   
 </div>
 
 

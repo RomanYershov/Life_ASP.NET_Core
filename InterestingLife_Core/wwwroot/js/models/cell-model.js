@@ -1,4 +1,4 @@
-﻿define(['ko'], function(ko) {
+﻿define(['ko'], function (ko) {
     return function (val) {
         var self = this;
         self.cell = ko.observable(val);
@@ -19,29 +19,29 @@
                 } else {
                     par2 = (parseInt(preRes2[0]) * 60);
                 }
-                
+
                 var summ = par1 + par2;
                 var drob = summ % 60;
                 var n1 = (summ - drob) / 60;
                 var res = (n1 + ':' + drob).toString();
-               
-                var teee = params[0];
-                teee.extend({ statusColor: res == '0' ? '' : res});
-                params[0](res == '0' ? '' : res);
+
+                var totalSumCell = params[0];
+                totalSumCell.extend({ statusColor: res == '0' ? '' : res });
+                totalSumCell(res == '0' ? '' : res);
             });
         }
         ko.extenders.statusColor = function (target, params) {
             var el = this.document.activeElement.nextElementSibling;
             if (el.id == '20')
                 el = el.nextElementSibling;
-           
+
             if (parseInt(params) < 3)
-                el.style.color = '#ff5252';
+                el.style.backgroundColor = '#ff5252';
             if (parseInt(params) >= 3)
-                el.style.color = '#62edff';
+                el.style.backgroundColor = '#2196F3';
         }
         ko.extenders.totalTimeCellExt = function (target, params) {
-            
+
             var tar = target();
             var hasTotalCell = ((params + 1) % 21 == 0);
             target.isTotalTimeCell = ko.observable(hasTotalCell);
@@ -57,7 +57,7 @@
                     target.badResultColor(true);
                 }
             }
-            
+
 
         }
 
