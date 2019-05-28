@@ -1,8 +1,11 @@
 ﻿<style>
     .table-box {
         border: 1px solid black;
+        z-index: 1;
     }
-
+    .body-content {
+        background: #009688;
+    }
     .column {
         width: 22px;
         margin-bottom: 15px;
@@ -24,8 +27,8 @@
         margin-bottom: 1px;
         text-align: center;
         border: none;
-        background: rgba(0, 0, 0, 0.58);
-        color: #ffc107;
+        background: rgba(0, 0, 0, 0.38);
+        color: #FFF176;
         border-radius: 0.5px;
     }
 
@@ -71,7 +74,7 @@
         color: whitesmoke;
     }
     .bad-result {
-        background-color: #ff5252;
+        background-color: #FF5722;
         color: whitesmoke;
     }
     #message:before {
@@ -105,7 +108,11 @@
             <!--/ko-->
         </div>
     </div>
-        <div  data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" class="col-md-2" style="padding: 0;"></div>
+    
+  
+        <div data-bind="component: {name: 'description-text-block' ,  params: {selectCellId: selectCellId}}" style="padding: 0;"></div>
+   
+  
 </div>
 
 

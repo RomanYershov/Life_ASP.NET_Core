@@ -36,7 +36,7 @@
                 el = el.nextElementSibling;
 
             if (parseInt(params) < 3)
-                el.style.backgroundColor = '#ff5252';
+                el.style.backgroundColor = '#FF5722';
             if (parseInt(params) >= 3)
                 el.style.backgroundColor = '#2196F3';
         }
@@ -48,7 +48,6 @@
             target.goodResultColor = ko.observable(false);
             target.badResultColor = ko.observable(false);
             if (hasTotalCell) {
-                debugger;
                 var val = !!!tar ? 0 : tar.split(':')[0];
                 if (parseInt(val) >= 3) {
                     target.goodResultColor(true);
@@ -62,7 +61,7 @@
         }
 
         self.cell.subscribe(function (newVal) {
-            var isWord = newVal.match(/[a-zA-Zа-яА-Я]/ig); //\*\/\\:;\|\{\}\(\)-=_,&\^%\$#@\!~`<>\?\"'   
+            var isWord = newVal.match(/[a-zA-Zа-яА-Я]|(;)/ig); //\*\/\\:;\|\{\}\(\)-=_,&\^%\$#@\!~`<>\?\"'   
             self.cell(isWord != null ? '' : newVal);
         });
     }

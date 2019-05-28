@@ -63,7 +63,7 @@ namespace InterestingLife_Core
 
             app.UseDeveloperExceptionPage();
             app.UseAuthentication();
-           // app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
