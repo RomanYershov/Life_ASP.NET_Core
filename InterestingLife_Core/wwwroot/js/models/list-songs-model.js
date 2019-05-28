@@ -28,28 +28,41 @@
         //}
 
         self.getSongById = function(song) {
-            self.remote.get("https://localhost:5005/api/songs/"+song.id,
+            debugger;
+            self.remote.get("https://localhost:5001/api/songs/getSongById/"+song.id,
                 function (result) {
-                    self.lyrics(result.lyrics);
-                    self.name(result.name);
+                    debugger;
+                    if (result.isSuccess) {
+                        self.lyrics(result.data.lyrics);
+                        self.name(result.data.name);
+                    }
                 });
         }
 
         self.getCategories = function() {
             debugger;
-            self.remote.get("https://localhost:5005/api/categories",
-                function(categories) {
-                    for (var i = 0; i < categories.length; i++) {
-                        self.categories.push({ id: categories[i].id, name: categories[i].name });
+            self.remote.get("https://localhost:5001/api/songs/categories",
+                function (result) {
+                    if (result.isSuccess) {
+                        debugger;
+                        for (var i = 0; i < result.data.length; i++) {
+                            self.categories.push({ id: result.data[i].id, name: result.data[i].name });
+                        }
+                    } else {
+                        self.errorMessage(result.errorText);
                     }
                 });
         }
         self.getSongsByCategory = function (category) {
-            self.remote.get("https://localhost:5005/api/categories/" + category.id,
+            self.remote.get("https://localhost:5001/api/songs/getSongsByCategory/" + category.id,
                 function (result) {
-                    self.reset();
-                    for (var i = 0; i < result.length; i++) {
-                        self.songs.push({ id: result[i].id, name: result[i].name });
+                    if (result.isSuccess) {
+                        self.reset();
+                        for (var i = 0; i < result.data.length; i++) {
+                            self.songs.push({ id: result.data[i].id, name: result.data[i].name });
+                        }
+                    } else {
+                        self.errorMessage(result.errorText);
                     }
                 });
         }
@@ -57,6 +70,16 @@
             self.lyrics("");
             self.name("");
             self.songs([]);
+        }
+        self.errorMessage = function(message) {
+            $('.error-block').html(message);
+            $('.error-block').animate({
+                opacity: '1'
+            },100, function() {
+                $('.error-block').animate({
+                    opacity: '0'
+                },5000);
+            });
         }
         self.getCategories();
 

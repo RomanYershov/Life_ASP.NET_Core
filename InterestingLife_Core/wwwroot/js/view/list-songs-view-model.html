@@ -32,15 +32,23 @@
             color: antiquewhite;
             cursor: pointer;
         }
+    .error-block {
+        opacity: 0;
+        color: #ff9800;
+    }
 </style>
 
 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="alert alert-info categories-box" data-bind="foreach: categories">
-             <div class="list-categories badge" data-bind="text:name, click:$component.getSongsByCategory"></div>
+        <div class="alert alert-info categories-box">
+            <div class="error-block"></div>
+            <div data-bind="foreach: categories">
+                <div class="list-categories badge" data-bind="text:name, click:$component.getSongsByCategory"></div>
+            </div>
         </div>
+        
     </div>
     <div class="col-md-3">
         <div class="name-songs-box">
