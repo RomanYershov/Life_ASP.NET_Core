@@ -8,6 +8,7 @@ namespace InterestingLife_Core.Models.Song
 {
     public class Song : Entity
     {
+        public string Name { get; set; }    
         public string Lyrics { get; set; }
     }
 }

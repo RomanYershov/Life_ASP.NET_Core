@@ -8,6 +8,5 @@ namespace InterestingLife_Core.Models.Abstractions
     public abstract class Entity
     {
         public virtual int Id { get; set; }
-        public virtual string Name { get; set; }    
     }
 }
