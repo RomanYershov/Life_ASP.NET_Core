@@ -40,11 +40,9 @@
         }
 
         self.getCategories = function() {
-            debugger;
             self.remote.get("https://localhost:5001/api/songs/categories",
                 function (result) {
                     if (result.isSuccess) {
-                        debugger;
                         for (var i = 0; i < result.data.length; i++) {
                             self.categories.push({ id: result.data[i].id, name: result.data[i].name });
                         }
@@ -62,6 +60,7 @@
                             self.songs.push({ id: result.data[i].id, name: result.data[i].name });
                         }
                     } else {
+                        self.reset();
                         self.errorMessage(result.errorText);
                     }
                 });
