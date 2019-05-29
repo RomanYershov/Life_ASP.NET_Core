@@ -14,9 +14,9 @@ namespace InterestingLife_Core.Areas.API
     [ApiController]
     public class SongsController : ControllerBase
     {
-        private ApplicationDbContext _applicationDb;
+        private LifeDbContext _applicationDb;
 
-        public SongsController(ApplicationDbContext context)
+        public SongsController(LifeDbContext context)
         {
             _applicationDb = context;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InterestingLife_Core.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InterestingLife_Core.Data;
+using InterestingLife_Core.Models.Abstractions;
+using InterestingLife_Core.Models.Song;
+using InterestingLife_Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,14 +37,18 @@ namespace InterestingLife_Core
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.AddDbContext<LifeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LifeConnection")));
+            services.AddDbContext<LifeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LifeConnection")));
+           // var asdf = Configuration.GetSection("appSettings").Value;
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<IService<Song, CreateSongModel>, SongService>();
+            services.AddScoped<IService<Category, CreateCategoryModel>, CategoryService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -18,4 +18,18 @@ namespace InterestingLife_Core.Data
         {
         }
     }
+
+    public interface IDbContext
+    {
+         DbContext Context { get; set; }
+    }
+    public class LifeDbContext  : DbContext 
+    {
+        public LifeDbContext(DbContextOptions<LifeDbContext> options) : base(options)
+        {
+        }
+        public DbSet<Diary> Diaries { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Song> Songs { get; set; }
+    }
 }
