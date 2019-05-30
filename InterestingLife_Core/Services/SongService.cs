@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace InterestingLife_Core.Services
 {
-    public class SongService : IService<Song, CreateSongModel>
+    public class SongService : ISongService
     {
         public LifeDbContext _dbContext;
 
@@ -62,7 +62,14 @@ namespace InterestingLife_Core.Services
 
         public SimpleResponse Get(int id)
         {
-            throw new NotImplementedException();
+            var song = _dbContext.Songs.Find(id);
+            return new SimpleResponse(song);
+        }
+
+        public IEnumerable<Song> GetSongsByCategoryId(int categoryId)
+        {
+            var songs = _dbContext.SongsToCategorieses.Where(x => x.Category.Id == categoryId).Select(x => x.Song);
+            return songs;
         }
     }
 }

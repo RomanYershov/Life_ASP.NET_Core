@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InterestingLife_Core.Abstractions;
 using InterestingLife_Core.Data;
 using InterestingLife_Core.Helpers;
+using InterestingLife_Core.Models.Song;
+using InterestingLife_Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,42 +17,40 @@ namespace InterestingLife_Core.Areas.API
     [ApiController]
     public class SongsController : ControllerBase
     {
-        private LifeDbContext _applicationDb;
+        private IService<Category, CreateCategoryModel> _categoryService;
+        private IService<Song, CreateSongModel> _songService;
+         
 
-        public SongsController(LifeDbContext context)
+        public SongsController(IService<Category, CreateCategoryModel> categoryService, IService<Song, CreateSongModel> songService)
         {
-            _applicationDb = context;
+            _categoryService = categoryService;
+            _songService = songService;
         }
         [HttpGet]
         [Route("/api/songs/categories")]
         public SimpleResponse Categories()
         {
-            var categories = _applicationDb.Categories;
-            if (categories == null)
-            {
-                return new SimpleResponse("Не найдено ни одной категории");
-            }
+            var categories = _categoryService.Get();
             return new SimpleResponse(categories);
         }
         [HttpGet]
         [Route("/api/songs/getSongsByCategory/{id}")]
-        public SimpleResponse Categories(int id)
+        public SimpleResponse GetSongsByCategory(int id)
         {
-            var songs = _applicationDb.Categories.Include(x => x.Songs).SingleOrDefault(x => x.Id == id)?.Songs;
-            return songs != null && songs.Count == 0 ? new SimpleResponse("Нет песен по выбранной категории") : new SimpleResponse(songs);
+            var songs = ((ISongService) _songService).GetSongsByCategoryId(id);
+            return new SimpleResponse(songs); //songs != null && !songs.Any() ? new SimpleResponse("Нет песен по выбранной категории") : new SimpleResponse(songs);
         }
         [HttpGet]
         [Route("/api/songs/getSongs")]
         public SimpleResponse Songs()
         {
-            return new SimpleResponse(_applicationDb.Songs);
+            return new SimpleResponse(_songService.Get());
         }
         [HttpGet]
         [Route("/api/songs/getSongById/{id}")]
         public SimpleResponse Songs(int id)
         {
-            var song = _applicationDb.Songs.SingleOrDefault(x => x.Id == id);
-            return new SimpleResponse(song);
+            return _songService.Get(id);
         }
         
     }

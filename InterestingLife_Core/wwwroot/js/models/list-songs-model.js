@@ -28,10 +28,8 @@
         //}
 
         self.getSongById = function(song) {
-            debugger;
             self.remote.get("https://localhost:5001/api/songs/getSongById/"+song.id,
                 function (result) {
-                    debugger;
                     if (result.isSuccess) {
                         self.lyrics(result.data.lyrics);
                         self.name(result.data.name);
@@ -47,7 +45,7 @@
                             self.categories.push({ id: result.data[i].id, name: result.data[i].name });
                         }
                     } else {
-                        self.errorMessage(result.errorText);
+                        self.errorMessage("Не найдено ни одной категории");
                     }
                 });
         }
@@ -61,7 +59,7 @@
                         }
                     } else {
                         self.reset();
-                        self.errorMessage(result.errorText);
+                        self.errorMessage("Нет песен по выбранной категории");
                     }
                 });
         }

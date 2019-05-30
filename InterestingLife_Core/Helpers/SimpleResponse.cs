@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace InterestingLife_Core.Helpers
 {
@@ -18,7 +20,7 @@ namespace InterestingLife_Core.Helpers
         public SimpleResponse(object _data)
         {
             Data = _data;
-            IsSuccess = true;
+            IsSuccess = (_data is IEnumerable<object> objects ? objects.Any() : _data != null);
         }
 
         public SimpleResponse(object _data, bool _isSuccess)

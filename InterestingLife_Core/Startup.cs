@@ -46,6 +46,7 @@ namespace InterestingLife_Core
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //services.AddScoped<ISongService, SongService>();
             services.AddScoped<IService<Song, CreateSongModel>, SongService>();
             services.AddScoped<IService<Category, CreateCategoryModel>, CategoryService>();
 
