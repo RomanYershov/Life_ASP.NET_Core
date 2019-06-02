@@ -1,7 +1,7 @@
-﻿define(['ko', 'jquery', 'remote'], function(ko, $, Remote) {
+﻿define(['ko', 'jquery', 'remote', 'messages'], function(ko, $, Remote, Messages) {
     return function() {
         var self = this;
-
+        self.msg = new Messages();
         self.remote = new Remote();
         self.songs = ko.observableArray();
         var Song = function(id, name, lyrics, author, status) {
@@ -46,7 +46,7 @@
                             self.categories.push({ id: result.data[i].id, name: result.data[i].name });
                         }
                     } else {
-                        self.errorMessage("Не найдено ни одной категории");
+                        self.msg.message('.error-block', 'Не найдено ни одной категории', 'red');
                     }
                 });
         }
@@ -60,7 +60,7 @@
                         }
                     } else {
                         self.reset();
-                        self.errorMessage("Нет песен по выбранной категории");
+                        self.msg.message('.error-block', 'Нет песен по выбранной категории', 'red');
                     }
                 });
         }
@@ -69,16 +69,7 @@
             self.name("");
             self.songs([]);
         }
-        self.errorMessage = function(message) {
-            $('.error-block').html(message);
-            $('.error-block').animate({
-                opacity: '1'
-            },100, function() {
-                $('.error-block').animate({
-                    opacity: '0'
-                },5000);
-            });
-        }
+        
         self.getCategories();
 
         //  self.getSongs();

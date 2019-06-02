@@ -3,7 +3,7 @@
         var self = this;
         self.remote = new Remote();
         self.validator = new Validator();
-        self.message = new Messages();
+        self.msg = new Messages();
 
         self.name = ko.observable();
         self.lirycs = ko.observable();
@@ -17,7 +17,7 @@
         self.create = function (newSong) {
             var res = self.validator.validationGroup();
             if (res.length > 0) {
-                self.message.message('#message', 'Не корректно заполнены данные', 'red');
+                self.msg.message('#message', 'Необходимо заполнить все поля', 'red');
                  return;
             }
            self.remote.post('/admin/createSong/',
@@ -27,7 +27,8 @@
                     CategoryId: newSong.selectedCategoryId
                }, function (result) {
                     if (result.isSuccess) {
-                        self.message.message('#message', 'Данные успешно сохранены','green');
+                        self.cleanForm();
+                        self.msg.message('#message', 'Данные успешно сохранены','green');
                     }
                 });
         }
@@ -41,9 +42,14 @@
                             self.categories.push({ id: result.data[i].id, name: result.data[i].name });
                         }
                     } else {
-                        self.errorMessage("Не найдено ни одной категории");
+                        self.msg.message('#message', 'Не найдено ни одной категории', 'red');
                     }
                 });
+        }
+
+        self.cleanForm = function() {
+            self.name('');
+            self.lirycs('');
         }
         self.getCategories();
     } 
