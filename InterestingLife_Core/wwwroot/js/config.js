@@ -7,6 +7,7 @@
         remote: "../js/jshelpers/remote",
         text: "../js/text",
         admin: "../js/models/admin",
-        validator: "../js/jshelpers/customValidation"
+        validator: "../js/jshelpers/customValidation",
+        messages: "../js/jshelpers/messages"
     }
 }); 

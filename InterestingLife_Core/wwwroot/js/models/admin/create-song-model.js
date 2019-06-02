@@ -1,8 +1,9 @@
-﻿define(['ko', 'remote', 'validator'], function(ko, Remote, Validator) {
+﻿define(['ko', 'remote', 'validator', 'messages'], function(ko, Remote, Validator, Messages) {
     return function(params) {
         var self = this;
         self.remote = new Remote();
         self.validator = new Validator();
+        self.message = new Messages();
 
         self.name = ko.observable();
         self.lirycs = ko.observable();
@@ -15,7 +16,10 @@
 
         self.create = function (newSong) {
             var res = self.validator.validationGroup();
-            if (res.length > 0) return;
+            if (res.length > 0) {
+                self.message.message('#message', 'Не корректно заполнены данные', 'red');
+                 return;
+            }
            self.remote.post('/admin/createSong/',
                 {
                     Name: newSong.name,
@@ -23,7 +27,7 @@
                     CategoryId: newSong.selectedCategoryId
                }, function (result) {
                     if (result.isSuccess) {
-
+                        self.message.message('#message', 'Данные успешно сохранены','green');
                     }
                 });
         }
