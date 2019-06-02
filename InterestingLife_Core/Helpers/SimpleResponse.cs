@@ -17,10 +17,11 @@ namespace InterestingLife_Core.Helpers
         {
             IsSuccess = true;
         }
-        public SimpleResponse(object _data)
+        public SimpleResponse(object _data, string errorText = "")
         {
             Data = _data;
             IsSuccess = (_data is IEnumerable<object> objects ? objects.Any() : _data != null);
+            ErrorText = errorText; 
         }
 
         public SimpleResponse(object _data, bool _isSuccess)

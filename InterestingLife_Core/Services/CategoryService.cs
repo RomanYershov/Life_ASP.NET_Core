@@ -41,7 +41,8 @@ namespace InterestingLife_Core.Services
 
         public SimpleResponse Get(int id)
         {
-            throw new NotImplementedException();
+            var category = _dbContext.Categories.Find(id);
+            return new SimpleResponse(category);
         }
     }
 }

@@ -28,8 +28,9 @@
         //}
 
         self.getSongById = function(song) {
-            self.remote.get("https://localhost:5001/api/songs/getSongById/"+song.id,
+            self.remote.get("/api/songs/getSongById/"+song.id,
                 function (result) {
+                    debugger;
                     if (result.isSuccess) {
                         self.lyrics(result.data.lyrics);
                         self.name(result.data.name);
@@ -38,7 +39,7 @@
         }
 
         self.getCategories = function() {
-            self.remote.get("https://localhost:5001/api/songs/categories",
+            self.remote.get("/api/songs/categories",
                 function (result) {
                     if (result.isSuccess) {
                         for (var i = 0; i < result.data.length; i++) {
@@ -50,7 +51,7 @@
                 });
         }
         self.getSongsByCategory = function (category) {
-            self.remote.get("https://localhost:5001/api/songs/getSongsByCategory/" + category.id,
+            self.remote.get("/api/songs/getSongsByCategory/" + category.id,
                 function (result) {
                     if (result.isSuccess) {
                         self.reset();

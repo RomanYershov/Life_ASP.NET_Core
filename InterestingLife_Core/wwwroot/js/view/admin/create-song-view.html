@@ -1,0 +1,21 @@
+﻿<div class="well">
+    <form>
+        <div class="form-group">
+
+            <div>
+                <label for="">Name</label>
+                <input id="name" type="text" style="width: 300px;" name="name" class="form-control" data-bind="value: name, valueUpdate:'afterkeydown'" />
+                <span style="color: red;" data-bind="visible: name.istValid, text: name.validationMessage"></span>
+            </div>
+            <div>
+                <label for="">Liryc</label>
+                <textarea id="lir" cols="80" data-bind="value: lirycs, valueUpdate:'afterkeydown'"></textarea>
+                <span style="color: red;" data-bind="visible: lirycs.istValid, text: lirycs.validationMessage"></span>
+            </div>
+        </div>
+        <div>
+            <select data-bind="options: categories,optionsText: 'name', optionsValue : 'id', value: selectedCategoryId"></select>
+        </div>
+        <input class="btn btn-success" type="button" value="Save" data-bind="click: create"/>
+    </form>
+</div>

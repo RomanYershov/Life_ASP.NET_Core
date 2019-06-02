@@ -28,8 +28,7 @@ namespace InterestingLife_Core.Controllers
 
         public IActionResult AddSong()
         {
-            var result = _categoryService.Get();
-            return View(new AddSongViewModel(){Categories = result.ToList()});
+            return View();
         }
 
         public SimpleResponse CreateSong(CreateSongModel model)

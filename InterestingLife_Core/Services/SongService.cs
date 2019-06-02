@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using InterestingLife_Core.Abstractions;
 using InterestingLife_Core.Data;
@@ -19,11 +20,23 @@ namespace InterestingLife_Core.Services
         {
             _dbContext = context;
         }
-        public SimpleResponse Create(CreateSongModel song)
+        public SimpleResponse Create(CreateSongModel model)
         {
             try
             {
-                _dbContext.Songs.Add(song.Song);
+                var song = new Song
+                {
+                    Name = model.Name,
+                    Lyrics = model.Lirycs
+                };
+                _dbContext.Songs.Add(song);
+                _dbContext.SaveChanges();
+                var songToCategory = new SongsToCategories
+                {
+                    Category = _dbContext.Categories.Find(model.CategoryId),
+                    Song = song
+                };
+                _dbContext.SongsToCategorieses.Add(songToCategory);
                 _dbContext.SaveChanges();
             }
             catch (Exception ex)

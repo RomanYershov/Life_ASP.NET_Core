@@ -8,7 +8,8 @@ namespace InterestingLife_Core.Models.Song
 {
     public class CreateSongModel : ViewModelBase
     {
-        public Song Song { get; set; }
-        public Category Category { get; set; } 
+        public string Name { get; set; }
+        public string Lirycs { get; set; }  
+        public int  CategoryId { get; set; } 
     }
 }
