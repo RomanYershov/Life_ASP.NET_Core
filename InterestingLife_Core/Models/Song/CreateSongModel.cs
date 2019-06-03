@@ -9,7 +9,9 @@ namespace InterestingLife_Core.Models.Song
     public class CreateSongModel : ViewModelBase
     {
         public string Name { get; set; }
-        public string Lirycs { get; set; }  
-        public int  CategoryId { get; set; } 
+        public string Lirycs { get; set; }
+        public List<Category> Categories { get; set; }
+
+        public CreateSongModel() => Categories = new List<Category>();
     }
 }

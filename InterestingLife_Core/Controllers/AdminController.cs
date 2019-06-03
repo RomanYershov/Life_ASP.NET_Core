@@ -31,10 +31,21 @@ namespace InterestingLife_Core.Controllers
             return View();
         }
 
+        public SimpleResponse GetSongsWithCategories()  
+        {
+            var result = ((ISongService) _songService).GetSongsWithCategories();
+            return result;
+        }
+
         public SimpleResponse CreateSong(CreateSongModel model)
         {
            var result = _songService.Create(model);
             return result;
+        }
+
+        public SimpleResponse RemoveSong(Song song)
+        {
+            return _songService.Delete(song);
         }
     }
 }

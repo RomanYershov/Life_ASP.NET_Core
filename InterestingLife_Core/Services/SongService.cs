@@ -27,26 +27,31 @@ namespace InterestingLife_Core.Services
                 var song = new Song
                 {
                     Name = model.Name,
-                    Lyrics = model.Lirycs
+                    Lyrics = model.Lirycs,
+                    CreateDate = DateTime.Now
                 };
                 _dbContext.Songs.Add(song);
                 _dbContext.SaveChanges();
-                var songToCategory = new SongsToCategories
+
+                foreach (var category in model.Categories)
                 {
-                    Category = _dbContext.Categories.Find(model.CategoryId),
-                    Song = song
-                };
-                _dbContext.SongsToCategorieses.Add(songToCategory);
+                    var songToCategory = new SongsToCategories
+                    {
+                        Category = _dbContext.Categories.SingleOrDefault(x => x.Id == category.Id),
+                        Song = song
+                    };
+                    _dbContext.SongsToCategorieses.Add(songToCategory);
+                }
                 _dbContext.SaveChanges();
             }
             catch (Exception ex)
             {
-               return new SimpleResponse(ex);
+                return new SimpleResponse(errorText:ex.InnerException.Message);
             }
             return new SimpleResponse();
         }
 
-       
+
 
         public SimpleResponse Delete(int id)
         {
@@ -58,7 +63,27 @@ namespace InterestingLife_Core.Services
             }
             catch (Exception e)
             {
-                return new SimpleResponse(e);
+                return new SimpleResponse(errorText: e.InnerException.Message);
+            }
+            return new SimpleResponse();
+        }
+
+        public SimpleResponse Delete(Song entity)
+        {
+            try
+            {
+                var songToCategories = _dbContext.SongsToCategorieses.Where(x => x.Song.Id == entity.Id);
+
+                foreach (var songToCategory in songToCategories)
+                {
+                    _dbContext.SongsToCategorieses.Remove(songToCategory);
+                }
+                _dbContext.Songs.Remove(entity);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return new SimpleResponse(errorText:e.InnerException.Message);
             }
             return new SimpleResponse();
         }
@@ -70,7 +95,7 @@ namespace InterestingLife_Core.Services
 
         public IEnumerable<Song> Get()
         {
-            return _dbContext.Songs;
+            return _dbContext.Songs.OrderBy(x => x.CreateDate);
         }
 
         public SimpleResponse Get(int id)
@@ -83,6 +108,35 @@ namespace InterestingLife_Core.Services
         {
             var songs = _dbContext.SongsToCategorieses.Where(x => x.Category.Id == categoryId).Select(x => x.Song);
             return songs;
+        }
+
+        public SimpleResponse GetSongsWithCategories()
+        {
+            var songsWithCategories = _dbContext.SongsToCategorieses.Include(x => x.Song).Include(x => x.Category).GroupBy(x => x.Song);
+            List<SongsWithCategories> songsWithCategorieses = new List<SongsWithCategories>();
+            foreach (var group in songsWithCategories)
+            {
+                var obj = new SongsWithCategories();
+                foreach (var item in group)
+                {
+                    obj.Song = item.Song;
+                    obj.Categories.Add(item.Category);
+                }
+                songsWithCategorieses.Add(obj);
+            }
+
+            return new SimpleResponse(songsWithCategorieses);
+        }
+
+        class SongsWithCategories
+        {
+            public Song Song { get; set; }
+            public List<Category> Categories { get; set; }
+
+            public SongsWithCategories()
+            {
+                Categories = new List<Category>();
+            }
         }
     }
 }

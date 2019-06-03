@@ -10,5 +10,6 @@ namespace InterestingLife_Core.Models.Song
     {
         public string Name { get; set; }    
         public string Lyrics { get; set; }
+        public DateTime CreateDate { get; set; }    
     }
 }

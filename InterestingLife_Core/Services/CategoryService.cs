@@ -29,6 +29,11 @@ namespace InterestingLife_Core.Services
             throw new NotImplementedException();
         }
 
+        public SimpleResponse Delete(Category entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public SimpleResponse Update(int id, Category category)
         {
             throw new NotImplementedException();

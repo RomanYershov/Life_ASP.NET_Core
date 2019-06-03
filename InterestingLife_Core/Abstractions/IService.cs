@@ -11,6 +11,7 @@ namespace InterestingLife_Core.Abstractions
     {
         SimpleResponse Create(T2 entity);
         SimpleResponse Delete(int id);
+        SimpleResponse Delete(T1 entity);
         SimpleResponse Update(int id, T1 entity);
         IEnumerable<T1> Get();
         SimpleResponse Get(int id);
