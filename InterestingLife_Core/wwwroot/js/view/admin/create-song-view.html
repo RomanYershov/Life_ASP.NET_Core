@@ -1,26 +1,27 @@
 ﻿<div class="well">
-    <h4 id="message"></h4>
     <form>
         <div class="form-group">
 
             <div>
-                <label for="">Name</label>
+                <label for="">Название</label>
                 <input id="name" type="text" style="width: 300px;" name="name" class="form-control" data-bind="value: name, valueUpdate:'afterkeydown'" />
                 <span style="color: red;" data-bind="visible: name.istValid, text: name.validationMessage"></span>
             </div>
             <div>
-                <label for="">Liryc</label>
-                <textarea id="lir" cols="60" rows="12" data-bind="value: lirycs, valueUpdate:'afterkeydown'"></textarea>
+                <label for="">Текст</label>
+                <textarea style="display: block;" id="lir" cols="60" rows="12" data-bind="value: lirycs, valueUpdate:'afterkeydown'"></textarea>
                 <span style="color: red;" data-bind="visible: lirycs.istValid, text: lirycs.validationMessage"></span>
             </div>
         </div>
         <div>
+            <label>Категория</label>
             <div data-bind="foreach: categories">
-                <input type="checkbox"  data-bind="checkedValue: $data ,checked: $parent.shosenCategories"/>
+                <input type="checkbox" data-bind="checkedValue: $data ,checked: $parent.shosenCategories" />
                 <label data-bind="text: name"></label>
             </div>
         </div>
-        <input class="btn btn-success" type="button" value="Save" data-bind="click: create" />
-        <!--<input class="btn btn-default" type="button" value="Cancel" data-bind="click: cancel" />-->
+        <div>
+            <input  class="btn btn-success" type="button" value="Сохранить" data-bind="click: create" /> <span id="message"></span>
+        </div>
     </form>
 </div>

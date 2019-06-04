@@ -5,21 +5,13 @@
         self.remote = new Remote();
         self.msg = new Messages();
         self.songsWithCategories = ko.observableArray([]);
-
-        //self.isHaveAdded = ko.observable(false);
-        //self.clickAddBtn = function () {
-        //    self.isHaveAdded(true);
-        //}
-        //self.clickCancelBtn = function() {
-        //    self.isHaveAdded(false);
-        //}
+       
 
         self.getSongs = function() {
             self.remote.get('/admin/GetSongsWithCategories', function(result) {
                 self.songsWithCategories(result.data);
             });
         }
-
         self.removeSong = function(item) {
             self.remote.post('/admin/RemoveSong', { song: item.song },
                 function(result) {

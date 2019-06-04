@@ -1,21 +1,22 @@
 ﻿define(['ko', 'remote', 'validator', 'messages'], function(ko, Remote, Validator, Messages) {
     return function(params) {
         
+        
         var self = this;
         self.remote = new Remote();
         self.validator = new Validator();
         self.msg = new Messages();
-
+        
        
         self.shosenCategories = ko.observableArray();
         self.name = ko.observable();
         self.lirycs = ko.observable();
         self.categories = ko.observableArray([]);
-        self.validator.validation([self.name, self.lirycs], '(!)');
-
+        self.validator.validation([self.name, self.lirycs], 'необходимо ввести текст ..');
+        
+        
 
         self.create = function (newSong) {
-            debugger;
             var res = self.validator.validationGroup();
             if (res.length > 0) {
                 self.msg.message('#message', 'Необходимо заполнить все поля', 'red');
@@ -30,8 +31,10 @@
                     if (result.isSuccess) {
                         self.cleanForm();
                         self.msg.message('#message', 'Данные успешно сохранены', 'green');
+                        params.getSongs();
                     } else {
                         self.msg.message('#message', result.errorText, 'red', 100, 15000);
+                        params.getSongs();
                     }
                 });
         }
@@ -39,7 +42,6 @@
         self.getCategories = function () {
             self.remote.get("/api/songs/categories",
                 function (result) {
-                    debugger;
                     if (result.isSuccess) {
                         for (var i = 0; i < result.data.length; i++) {
                             self.categories.push({ id: result.data[i].id, name: result.data[i].name });

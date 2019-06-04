@@ -3,7 +3,6 @@
         var self = this;
 
         self.message = function (tagId, message, color = 'red', start = 100, end = 5000) {
-            debugger;
             var tag = $(tagId);
             tag.html(message);
             tag.css({ color: color });

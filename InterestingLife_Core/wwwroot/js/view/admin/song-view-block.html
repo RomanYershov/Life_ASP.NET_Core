@@ -3,13 +3,11 @@
 
         <div class="well-sm">
             <h5 id="info-msg"></h5>
-            <!--<a class="btn btn-info" data-bind="click: clickAddBtn, visible: !isHaveAdded()">Create song</a>
-            <a class="btn btn-info" data-bind="click: clickCancelBtn, visible: isHaveAdded">Cancel</a>-->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Create song
+                Добавить песню
             </button>
         </div>
-        <!--<div data-bind="component: {name: 'add-song-block'}, visible: isHaveAdded"></div>-->
+       
         
         
         <!-- Button trigger modal -->
@@ -20,17 +18,16 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Create new song</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">ДОБАВЛЕНИЕ НОВОЙ ЗАПИСИ</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div data-bind="component: {name: 'add-song-block'}"></div>
+                        <add-song-block params="getSongs: getSongs "></add-song-block>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -50,7 +47,7 @@
                 <!--ko foreach: songsWithCategories-->
                 <tr>
                     <td style="width: 40%;">
-                        <h5 style="color: orangered;" data-toggle="collapse" data-bind="text: $data.song.name, attr: {href: '#' + $index()}" aria-expanded="false"></h5>
+                        <h5 style="color: orangered; cursor: pointer;" data-toggle="collapse" data-bind="text: $data.song.name, attr: {href: '#' + $index()}" aria-expanded="false"></h5>
                         <p class="collapse" data-bind="attr: {id: $index}">
                             <span style="white-space: pre-wrap;" data-bind="text:$data.song.lyrics"></span>
                         </p>

@@ -57,8 +57,13 @@ namespace InterestingLife_Core.Services
         {
             try
             {
-                var song = _dbContext.Songs.SingleOrDefault(x => x.Id == id);
-                _dbContext.Remove(song);
+                var songToCategories = _dbContext.SongsToCategorieses.Where(x => x.Song.Id == id);
+
+                foreach (var songToCategory in songToCategories)
+                {
+                    _dbContext.SongsToCategorieses.Remove(songToCategory);
+                }
+                _dbContext.Songs.Remove(_dbContext.Songs.Find(id));
                 _dbContext.SaveChanges();
             }
             catch (Exception e)
