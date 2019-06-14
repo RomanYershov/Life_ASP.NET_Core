@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace InterestingLife_Core.Abstractions
 {
-    public abstract class ViewModelBase
+    public  interface ISearching<T>
     {
-        public virtual int Id { get; set; }
+        IEnumerable<T> Search(string text);
+        IEnumerable<T> Search(DateTime createDate);
     }
 }

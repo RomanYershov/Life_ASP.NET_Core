@@ -1,22 +1,21 @@
-﻿define(['ko', 'jquery', 'remote', 'messages'], function(ko, $, Remote, Messages) {
+﻿define(['ko', 'jquery', 'remote', 'messages', 'services/categoryService'], function(ko, $, Remote, Messages, CategoryService) {
     return function() {
         var self = this;
         self.msg = new Messages();
         self.remote = new Remote();
         self.songs = ko.observableArray();
-        var Song = function(id, name, lyrics, author, status) {
-            this.id = ko.observable(id);
-            this.name = ko.observable(name);
-            this.lyrics = ko.observable(lyrics);
-            this.author = ko.observable(author);
-            this.status = ko.observable(status);
-
+        self.categoryService = new CategoryService();
+        self.getCategories = function() {
+         self.categoryService.getCategories();
         }
+
+        
+      
         self.song = ko.observable();
         self.selectedSong = ko.observableArray();
         self.lyrics = ko.observable();
         self.name = ko.observable();
-        self.categories = ko.observableArray();
+        //self.categories = ko.observableArray();
 
         //self.getSongs = function() {
         //    self.remote.get("https://localhost:5005/api/songs",
@@ -38,18 +37,18 @@
                 });
         }
 
-        self.getCategories = function() {
-            self.remote.get("/api/songs/categories",
-                function (result) {
-                    if (result.isSuccess) {
-                        for (var i = 0; i < result.data.length; i++) {
-                            self.categories.push({ id: result.data[i].id, name: result.data[i].name });
-                        }
-                    } else {
-                        self.msg.message('.error-block', 'Не найдено ни одной категории', 'red');
-                    }
-                });
-        }
+        //self.getCategories = function() {
+        //    self.remote.get("/api/songs/categories",
+        //        function (result) {
+        //            if (result.isSuccess) {
+        //                for (var i = 0; i < result.data.length; i++) {
+        //                    self.categories.push({ id: result.data[i].id, name: result.data[i].name });
+        //                }
+        //            } else {
+        //                self.msg.message('.error-block', 'Не найдено ни одной категории', 'red');
+        //            }
+        //        });
+        //}
         self.getSongsByCategory = function (category) {
             self.remote.get("/api/songs/getSongsByCategory/" + category.id,
                 function (result) {

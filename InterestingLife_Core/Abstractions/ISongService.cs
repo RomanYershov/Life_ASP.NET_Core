@@ -7,7 +7,7 @@ using InterestingLife_Core.Models.Song;
 
 namespace InterestingLife_Core.Abstractions
 {
-    interface ISongService : IService<Song, CreateSongModel> 
+    interface ISongService : IService<Song, SongModel> 
     {
         IEnumerable<Song> GetSongsByCategoryId(int categoryId);
         SimpleResponse GetSongsWithCategories();

@@ -8,6 +8,7 @@
         text: "../js/text",
         admin: "../js/models/admin",
         validator: "../js/jshelpers/customValidation",
-        messages: "../js/jshelpers/messages"
+        messages: "../js/jshelpers/messages",
+        services: "../js/services/"
     }
 }); 

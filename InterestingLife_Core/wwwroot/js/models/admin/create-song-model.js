@@ -1,4 +1,4 @@
-﻿define(['ko', 'remote', 'validator', 'messages'], function(ko, Remote, Validator, Messages) {
+﻿define(['ko', 'remote', 'validator', 'messages', 'services/categoryService'], function(ko, Remote, Validator, Messages, CategoryService) {
     return function(params) {
         
         
@@ -6,13 +6,16 @@
         self.remote = new Remote();
         self.validator = new Validator();
         self.msg = new Messages();
-        
+        self.categoryService = new CategoryService();
+        self.getCategories = function() {
+            self.categoryService.getCategories();
+        }
        
         self.shosenCategories = ko.observableArray();
         self.name = ko.observable();
         self.lirycs = ko.observable();
-        self.categories = ko.observableArray([]);
-        self.validator.validation([self.name, self.lirycs], 'необходимо ввести текст ..');
+        //self.categories = ko.observableArray([]);
+        self.validator.validation([self.name, self.lirycs], 'необходимо ввести текст ..');//TODO проверь валидацию категорий/не работает
         
         
 
@@ -39,18 +42,18 @@
                 });
         }
        
-        self.getCategories = function () {
-            self.remote.get("/api/songs/categories",
-                function (result) {
-                    if (result.isSuccess) {
-                        for (var i = 0; i < result.data.length; i++) {
-                            self.categories.push({ id: result.data[i].id, name: result.data[i].name });
-                        }
-                    } else {
-                        self.msg.message('#message', 'Не найдено ни одной категории', 'red');
-                    }
-                });
-        }
+        //self.getCategories = function () {
+        //    self.remote.get("/api/songs/categories",
+        //        function (result) {
+        //            if (result.isSuccess) {
+        //                for (var i = 0; i < result.data.length; i++) {
+        //                    self.categories.push({ id: result.data[i].id, name: result.data[i].name });
+        //                }
+        //            } else {
+        //                self.msg.message('#message', 'Не найдено ни одной категории', 'red');
+        //            }
+        //        });
+        //}
 
         self.cleanForm = function() {
             self.name('');

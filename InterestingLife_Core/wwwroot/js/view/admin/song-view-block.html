@@ -3,28 +3,26 @@
 
         <div class="well-sm">
             <h5 id="info-msg"></h5>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateSongModalCenter">
                 Добавить песню
             </button>
         </div>
-       
-        
-        
-        <!-- Button trigger modal -->
-       
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+
+        <!-- Button trigger modal -->
+        <!--Create Song Modal -->
+        <div class="modal fade" id="CreateSongModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: cornflowerblue;">
                         <h5 class="modal-title" id="exampleModalLongTitle">ДОБАВЛЕНИЕ НОВОЙ ЗАПИСИ</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <add-song-block params="getSongs: getSongs "></add-song-block>
+                        <add-song-block params="getSongs: getSongs"></add-song-block>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -32,7 +30,28 @@
                 </div>
             </div>
         </div>
-        
+
+
+        <!--Edit Song Modal -->
+        <div class="modal fade" id="EditSongModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: orange;">
+                        <h5 class="modal-title" id="exampleModalLongTitle">РЕДАКТИРОВАНИЕ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <edit-song-block params="song: editingSong, getSongs: getSongs"></edit-song-block>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <table class="table table-bordered">
             <thead>
@@ -54,10 +73,12 @@
                     </td>
 
                     <td data-bind="foreach:$data.categories">
-                        <span data-bind="text:name" class="badge" style="background: darkseagreen;"></span>
+                        <!--<span data-bind="text:category.name" class="badge" style="background: darkseagreen;"></span>-->
+                        <input type="checkbox" data-bind="checkedValue: $data ,checked: $data.hasChoosing" />
+                    <label data-bind="text:category.name"></label>
                     </td>
 
-                    <td style="width: 6%; text-align: center"><a class="btn btn-warning">Edit</a></td>
+                    <td style="width: 6%; text-align: center"><a class="btn btn-warning" data-toggle="modal" data-target="#EditSongModalCenter" data-bind="click: $component.getEditinsSong">Edit</a></td>
                     <td style="width: 10%; text-align: center"><a class="btn btn-danger" data-bind="click: $component.removeSong">Remove</a></td>
                 </tr>
                 <!--/ko-->

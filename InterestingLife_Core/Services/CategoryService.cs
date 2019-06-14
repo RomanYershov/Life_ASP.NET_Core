@@ -34,7 +34,7 @@ namespace InterestingLife_Core.Services
             throw new NotImplementedException();
         }
 
-        public SimpleResponse Update(int id, Category category)
+        public SimpleResponse Update(CreateCategoryModel model)
         {
             throw new NotImplementedException();
         }

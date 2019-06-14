@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace InterestingLife_Core.Helpers
 {
-    public class SimpleResponse 
+    public class SimpleResponse
     {
         public bool IsSuccess { get; set; }
         public string ErrorText { get; set; }
@@ -17,11 +17,12 @@ namespace InterestingLife_Core.Helpers
         {
             IsSuccess = true;
         }
-        public SimpleResponse(object _data, string errorText = "")
+        public SimpleResponse(object _data, string errorText = null)
         {
             Data = _data;
             IsSuccess = (_data is IEnumerable<object> objects ? objects.Any() : _data != null);
-            ErrorText = errorText; 
+            if (!IsSuccess)
+                ErrorText = errorText;
         }
 
         public SimpleResponse(object _data, bool _isSuccess)

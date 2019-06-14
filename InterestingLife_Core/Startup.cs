@@ -47,7 +47,7 @@ namespace InterestingLife_Core
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //services.AddScoped<ISongService, SongService>();
-            services.AddScoped<IService<Song, CreateSongModel>, SongService>();
+            services.AddScoped<IService<Song, SongModel>, SongService>();
             services.AddScoped<IService<Category, CreateCategoryModel>, CategoryService>();
 
         }

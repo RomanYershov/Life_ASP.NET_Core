@@ -45,7 +45,7 @@
     <div class="col-md-12">
         <div class="alert alert-info categories-box">
             <div class="error-block"></div>
-            <div data-bind="foreach: categories">
+            <div data-bind="foreach: categoryService.categories">
                 <div class="list-categories badge" data-bind="text:name, click:$component.getSongsByCategory"></div>
             </div>
         </div>

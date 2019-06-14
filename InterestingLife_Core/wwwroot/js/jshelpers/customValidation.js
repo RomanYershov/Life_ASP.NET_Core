@@ -14,9 +14,7 @@
 
 
         self.validation = function(objects, message) {
-            
             $.each(objects,function(a,obj) {
-                debugger;
                 obj.extend({ validation: message });
                 self.objects.push(obj);
             });

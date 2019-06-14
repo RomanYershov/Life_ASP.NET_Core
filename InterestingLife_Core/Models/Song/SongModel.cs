@@ -6,12 +6,12 @@ using InterestingLife_Core.Abstractions;
 
 namespace InterestingLife_Core.Models.Song
 {
-    public class CreateSongModel : ViewModelBase
+    public class SongModel : ViewModelBase
     {
         public string Name { get; set; }
         public string Lirycs { get; set; }
         public List<Category> Categories { get; set; }
 
-        public CreateSongModel() => Categories = new List<Category>();
+        public SongModel() => Categories = new List<Category>();
     }
 }

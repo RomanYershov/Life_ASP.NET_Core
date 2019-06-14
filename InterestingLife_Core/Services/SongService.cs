@@ -20,7 +20,7 @@ namespace InterestingLife_Core.Services
         {
             _dbContext = context;
         }
-        public SimpleResponse Create(CreateSongModel model)
+        public SimpleResponse Create(SongModel model)
         {
             try
             {
@@ -93,9 +93,42 @@ namespace InterestingLife_Core.Services
             return new SimpleResponse();
         }
 
-        public SimpleResponse Update(int id, Song song)
+        public SimpleResponse Update(SongModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var editingSong = _dbContext.Songs.Find(model.Id);
+                if (editingSong.Name != model.Name)
+                    editingSong.Name = model.Name;
+                if (editingSong.Lyrics != model.Lirycs)
+                    editingSong.Lyrics = model.Lirycs;
+
+                var existingCategories = _dbContext.SongsToCategorieses.Where(x => x.Song.Id == model.Id).Include(x => x.Category);
+                foreach (var choosingCategory in model.Categories)
+                {
+                    if (existingCategories.All(x => x.Category.Id != choosingCategory.Id))
+                    {
+                         var songToCategory = new SongsToCategories{ Category = _dbContext.Categories.Find(choosingCategory.Id), Song = _dbContext.Songs.Find(model.Id) };
+                        _dbContext.SongsToCategorieses.Add(songToCategory);
+                    }    
+                }
+
+                foreach (var existingCategory in existingCategories)
+                {
+                    if (model.Categories.All(x => x.Id != existingCategory.Category.Id))
+                    {
+                        _dbContext.SongsToCategorieses.Remove(existingCategory);
+                    }   
+                }
+
+                _dbContext.Songs.Update(editingSong);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return new SimpleResponse(e.InnerException.Message);
+            }
+            return new SimpleResponse(true);
         }
 
         public IEnumerable<Song> Get()
@@ -118,30 +151,51 @@ namespace InterestingLife_Core.Services
         public SimpleResponse GetSongsWithCategories()
         {
             var songsWithCategories = _dbContext.SongsToCategorieses.Include(x => x.Song).Include(x => x.Category).GroupBy(x => x.Song);
+            var categories = _dbContext.Categories.Select(x => new CategoryEditModel { Category = x, HasChoosing = false}).ToList();
             List<SongsWithCategories> songsWithCategorieses = new List<SongsWithCategories>();
             foreach (var group in songsWithCategories)
             {
-                var obj = new SongsWithCategories();
+                var obj = new SongsWithCategories(categories);
                 foreach (var item in group)
                 {
                     obj.Song = item.Song;
-                    obj.Categories.Add(item.Category);
+                    obj.SetChoosingCategory(item.Category);
                 }
                 songsWithCategorieses.Add(obj);
             }
-
-            return new SimpleResponse(songsWithCategorieses);
+            return new SimpleResponse(songsWithCategorieses, "no data");
         }
 
         class SongsWithCategories
         {
             public Song Song { get; set; }
-            public List<Category> Categories { get; set; }
+              
+            public List<CategoryEditModel> Categories { get; set; }
 
-            public SongsWithCategories()
+            public SongsWithCategories(List<CategoryEditModel> categories)
             {
-                Categories = new List<Category>();
+                Categories = new List<CategoryEditModel>();
+                foreach (var categoryModel in categories)
+                {
+                    Categories.Add(new CategoryEditModel
+                    {
+                        Category = new Category{Id = categoryModel.Category.Id, Name = categoryModel.Category.Name},
+                    });
+                }
             }
+
+            public void SetChoosingCategory(Category category)
+            {
+                foreach (var self in this.Categories)
+                {
+                    if (self.Category.Id == category.Id)
+                    {
+                        self.HasChoosing = true;
+                    }
+                }
+            } 
         }
+
+       
     }
 }

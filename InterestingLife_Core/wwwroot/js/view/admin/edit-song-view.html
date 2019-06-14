@@ -1,7 +1,6 @@
 ﻿<div class="well">
     <form>
         <div class="form-group">
-
             <div>
                 <label for="">Название</label>
                 <input id="name" type="text" style="width: 300px;" name="name" class="form-control" data-bind="value: name, valueUpdate:'afterkeydown'" />
@@ -15,13 +14,13 @@
         </div>
         <div>
             <label>Категория</label>
-            <div data-bind="foreach:categoryService.categories">
-                <input type="checkbox" data-bind="checkedValue: $data ,checked: $parent.shosenCategories" />
-                <label data-bind="text: name"></label>
+            <div data-bind="foreach:categories">
+                <input type="checkbox" data-bind="checkedValue:$data ,checked:hasChoosing" />
+                <label data-bind="text: category.name"></label>
             </div>
         </div>
         <div>
-            <input  class="btn btn-success" type="button" value="Сохранить" data-bind="click: create" /> <span id="message"></span>
+            <input class="btn btn-success" type="button" value="Сохранить" data-bind="click: save" /> <span id="info-message"></span>
         </div>
     </form>
 </div>
