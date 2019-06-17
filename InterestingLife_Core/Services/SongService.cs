@@ -104,6 +104,13 @@ namespace InterestingLife_Core.Services
                     editingSong.Lyrics = model.Lirycs;
 
                 var existingCategories = _dbContext.SongsToCategorieses.Where(x => x.Song.Id == model.Id).Include(x => x.Category);
+                foreach (var existingCategory in existingCategories)
+                {
+                    if (model.Categories.All(x => x.Id != existingCategory.Category.Id))
+                    {
+                        _dbContext.SongsToCategorieses.Remove(existingCategory);
+                    }
+                }
                 foreach (var choosingCategory in model.Categories)
                 {
                     if (existingCategories.All(x => x.Category.Id != choosingCategory.Id))
@@ -113,13 +120,7 @@ namespace InterestingLife_Core.Services
                     }    
                 }
 
-                foreach (var existingCategory in existingCategories)
-                {
-                    if (model.Categories.All(x => x.Id != existingCategory.Category.Id))
-                    {
-                        _dbContext.SongsToCategorieses.Remove(existingCategory);
-                    }   
-                }
+              
 
                 _dbContext.Songs.Update(editingSong);
                 _dbContext.SaveChanges();
