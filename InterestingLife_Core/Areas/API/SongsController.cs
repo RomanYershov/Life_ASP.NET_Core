@@ -52,6 +52,12 @@ namespace InterestingLife_Core.Areas.API
         {
             return _songService.Get(id);
         }
-        
+        [HttpGet]
+        [Route("/api/songs/songsWithCategories")]
+        public SimpleResponse SongsWithCategories()
+        {
+            var result = ((ISongService) _songService).GetSongsWithCategories();
+            return result;
+        }
     }
 }

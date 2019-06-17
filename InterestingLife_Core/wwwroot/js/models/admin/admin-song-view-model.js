@@ -7,23 +7,13 @@
         self.categories = ko.observableArray();
         self.songsWithCategories = ko.observableArray([]);
         
-        self.resSongModel = ko.observable();
+       
       
         self.editingSong = ko.observable();
         self.getEditinsSong = function (val) {
             self.editingSong(val);
         }
         
-        self.getCategories = function () {
-            self.remote.get("/api/songs/categories",
-                function (result) {
-                    if (result.isSuccess) {
-                        self.categories(result.data);
-                    } 
-                });
-        }
-
-       
 
         self.getSongs = function() {
             self.remote.get('/admin/GetSongsWithCategories', function (result) {
@@ -45,7 +35,6 @@
                     }
                 });
         }
-        self.getCategories();
         
         self.getSongs();
        

@@ -1,31 +1,4 @@
-﻿@*<style>
-        .cell {
-            width: 21px;
-            height: 21px;
-            margin-left: 0;
-            text-align: center;
-        }
-    </style>
-
-    <h2 data-bind="text: title"></h2>
-
-    <input type="month" class="form-control" required data-bind="value: currentDate, event: { change: getTable }"/>
-    <form data-bind="submit: saveNewValue">
-        <!--ko foreach: table()-->
-        <div class="alert-info" style="width: 22px; margin-bottom: 15px; border: 1px black; float: left;">
-            <input type="text" class="cell" data-bind="value: $index() + 1" />
-            <!--ko foreach: cells()-->
-            <input  type="text" name="cell" class="cell" data-bind="textInput: $data.cell"/>
-            <!--/ko-->
-        </div>
-        <!--/ko-->
-        <input type="submit" value="save"/>
-    </form>*@
-
-
-@*<template id="table-template">
-        <p data-bind="text: $component.test"></p>
-    </template>*@
+﻿
 
 
 
@@ -51,20 +24,4 @@
 
 
 
-
-
-@*@section Scripts
-        {
-        <script>
-            require(['../js/config'], function () {
-                require(['ko', 'models/diary-table-view-model', 'jquery'], function (ko, diaryViewModel, $) {
-                    $(document).ready(function () {
-                        ko.applyBindings(new diaryViewModel());
-                    });
-
-
-                });
-            });
-        </script>
-    }*@
 
