@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "AdminCategories";
+}
+
+<h2>AdminCategories</h2>
+
+<admin-categories-block></admin-categories-block>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+    <script>
+        require(['../js/config'], function () {
+            require(['ko', 'jquery', 'admin/admin-component-register'], function (ko, $, components) {
+                $(document).ready(function () {
+                    ko.applyBindings(new components());
+                });
+            });
+        });
+    </script>
+}
+

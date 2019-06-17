@@ -15,5 +15,15 @@
                 viewModel: {require: 'models/admin/edit-song-model'},
                 template: {require: 'text!/js/view/admin/edit-song-view.html'}
             });
+        ko.components.register('admin-categories-block',
+            {
+                viewModel: { require: 'models/admin/admin-categories-model' },
+                template: {require: 'text!/js/view/admin/admin-categories-view.html'}
+            });
+        ko.components.register('add-category-block',
+            {
+                viewModel: { require: 'models/admin/admin-create-category-model' },
+                template: {require: 'text!/js/view/admin/admin-create-category-view.html'}
+            });
     }
 });

@@ -2,7 +2,9 @@
     <div class="well">
 
         <div class="well-sm">
-            <h5 id="info-msg"></h5>
+            <p>
+                <strong id="info-msg"></strong>
+            </p>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateSongModalCenter">
                 Добавить песню
             </button>
@@ -66,7 +68,7 @@
                 <!--ko foreach: songsWithCategories-->
                 <tr>
                     <td style="width: 40%;">
-                        <strong style="color: orangered; cursor: pointer;" data-toggle="collapse" data-bind="text: $data.song.name, attr: {href: '#' + $index()}" aria-expanded="false"></strong>
+                        <strong style="color: black; cursor: pointer;" data-toggle="collapse" data-bind="text: $data.song.name, attr: {href: '#' + $index()}" aria-expanded="false"></strong>
                         <p class="collapse" data-bind="attr: {id: $index}">
                             <span style="white-space: pre-wrap;" data-bind="text:$data.song.lyrics"></span>
                         </p>

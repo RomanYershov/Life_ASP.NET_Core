@@ -48,7 +48,7 @@ namespace InterestingLife_Core
 
             //services.AddScoped<ISongService, SongService>();
             services.AddScoped<IService<Song, SongModel>, SongService>();
-            services.AddScoped<IService<Category, CreateCategoryModel>, CategoryService>();
+            services.AddScoped<IService<Category, CategoryModel>, CategoryService>();
 
         }
 

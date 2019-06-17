@@ -15,9 +15,9 @@ namespace InterestingLife_Core.Controllers
     public class AdminController : Controller
     {
         private readonly IService<Song, SongModel> _songService;
-        private readonly IService<Category, CreateCategoryModel> _categoryService;
+        private readonly IService<Category, CategoryModel> _categoryService;
 
-        public AdminController(IService<Song, SongModel> songService, IService<Category, CreateCategoryModel> categoryService)
+        public AdminController(IService<Song, SongModel> songService, IService<Category, CategoryModel> categoryService)
         {
             _songService = songService;
             _categoryService = categoryService;
@@ -32,15 +32,17 @@ namespace InterestingLife_Core.Controllers
             return View();
         }
 
-        public SimpleResponse GetSongsWithCategories()  
+
+
+        public SimpleResponse GetSongsWithCategories()
         {
-            var result = ((ISongService) _songService).GetSongsWithCategories();
+            var result = ((ISongService)_songService).GetSongsWithCategories();
             return result;
         }
         [HttpPost]
         public SimpleResponse CreateSong(SongModel model)
         {
-           var result = _songService.Create(model);
+            var result = _songService.Create(model);
             return result;
         }
         [HttpPost]
@@ -52,6 +54,30 @@ namespace InterestingLife_Core.Controllers
         public SimpleResponse EditSong(SongModel model)
         {
             return _songService.Update(model);
+        }
+
+
+
+        public IActionResult AdminCategories()
+        {
+            return View();
+        }
+        [HttpGet]
+        public SimpleResponse GetCategories()
+        {
+            var categories = _categoryService.Get();
+            return new SimpleResponse(categories);
+        }
+        [HttpPost]
+        public SimpleResponse CreateCategory(CategoryModel model)
+        {
+            return _categoryService.Create(model);
+        }
+
+        public SimpleResponse RemoveCategory(Category category)
+        {
+            var result = _categoryService.Delete(category);
+            return result;
         }
     }
 }

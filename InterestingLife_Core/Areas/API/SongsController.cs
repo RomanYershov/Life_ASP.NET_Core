@@ -17,11 +17,11 @@ namespace InterestingLife_Core.Areas.API
     [ApiController]
     public class SongsController : ControllerBase
     {
-        private IService<Category, CreateCategoryModel> _categoryService;
+        private IService<Category, CategoryModel> _categoryService;
         private IService<Song, SongModel> _songService;
          
 
-        public SongsController(IService<Category, CreateCategoryModel> categoryService, IService<Song, SongModel> songService)
+        public SongsController(IService<Category, CategoryModel> categoryService, IService<Song, SongModel> songService)
         {
             _categoryService = categoryService;
             _songService = songService;

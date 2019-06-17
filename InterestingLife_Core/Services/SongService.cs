@@ -151,6 +151,9 @@ namespace InterestingLife_Core.Services
 
         public SimpleResponse GetSongsWithCategories()
         {
+            //var testSongsCAte = _dbContext.so
+
+
             var songsWithCategories = _dbContext.SongsToCategorieses.Include(x => x.Song).Include(x => x.Category).GroupBy(x => x.Song);
             var categories = _dbContext.Categories.Select(x => new CategoryEditModel { Category = x, HasChoosing = false}).ToList();
             List<SongsWithCategories> songsWithCategorieses = new List<SongsWithCategories>();

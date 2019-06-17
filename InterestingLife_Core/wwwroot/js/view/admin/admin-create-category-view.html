@@ -1,0 +1,14 @@
+﻿<div class="well">
+    <form>
+        <div class="form-group">
+            <div>
+                <label for="">Название</label>
+                <input class="form-control" data-bind="value: name, valueUpdate:'afterkeydown'" />
+                <span style="color: red;" data-bind="text: name.validationMessage, visible:name.istValid"></span>
+            </div>
+            <div style="padding-top: 15px;">
+                <input type="button" class="btn btn-success" value="Добавить" data-bind="click: create" /> <span id="message"></span>
+            </div>
+        </div>
+    </form>
+</div>
