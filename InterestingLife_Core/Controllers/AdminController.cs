@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using InterestingLife_Core.Abstractions;
 using InterestingLife_Core.Data;
 using InterestingLife_Core.Helpers;
+using InterestingLife_Core.Models;
 using InterestingLife_Core.Models.Song;
 using InterestingLife_Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,14 @@ namespace InterestingLife_Core.Controllers
     {
         private readonly IService<Song, SongModel> _songService;
         private readonly IService<Category, CategoryModel> _categoryService;
+        private readonly IService<User, ViewModelBase> _userService;
 
-        public AdminController(IService<Song, SongModel> songService, IService<Category, CategoryModel> categoryService)
+        public AdminController(IService<Song, SongModel> songService, IService<Category,
+            CategoryModel> categoryService, IService<User,ViewModelBase> userService)
         {
             _songService = songService;
             _categoryService = categoryService;
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -78,6 +82,21 @@ namespace InterestingLife_Core.Controllers
         {
             var result = _categoryService.Delete(category);
             return result;
+        }
+
+
+
+
+
+        public SimpleResponse GetUsers()
+        {
+            var users = _userService.Get();
+            return new SimpleResponse(users);
+        }
+
+        public SimpleResponse RemoveUser(string id)
+        {
+            return ((UserService)_userService).Delete(id);
         }
     }
 }

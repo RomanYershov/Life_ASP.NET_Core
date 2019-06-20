@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InterestingLife_Core.Data;
+using InterestingLife_Core.Models;
 using InterestingLife_Core.Models.Abstractions;
 using InterestingLife_Core.Models.Song;
 using InterestingLife_Core.Services;
@@ -49,7 +50,7 @@ namespace InterestingLife_Core
             //services.AddScoped<ISongService, SongService>();
             services.AddScoped<IService<Song, SongModel>, SongService>();
             services.AddScoped<IService<Category, CategoryModel>, CategoryService>();
-
+            services.AddScoped<IService<User, ViewModelBase>, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
