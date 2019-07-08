@@ -8,7 +8,7 @@ using InterestingLife_Core.Models.Song;
 
 namespace InterestingLife_Core.Abstractions
 {
-    public interface IService<T1, T2> where T1 : Entity  where  T2   : ViewModelBase 
+    public interface IService<T1, T2>   where  T2   : ViewModelBase 
     {
         SimpleResponse Create(T2 entity);
         SimpleResponse Delete(int id);

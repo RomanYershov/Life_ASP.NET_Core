@@ -157,15 +157,22 @@ namespace InterestingLife_Core.Services
             var songsWithCategories = _dbContext.SongsToCategorieses.Include(x => x.Song).Include(x => x.Category).GroupBy(x => x.Song);
             var categories = _dbContext.Categories.Select(x => new CategoryEditModel { Category = x, HasChoosing = false}).ToList();
             List<SongsWithCategories> songsWithCategorieses = new List<SongsWithCategories>();
-            foreach (var group in songsWithCategories)
+            try
             {
-                var obj = new SongsWithCategories(categories);
-                foreach (var item in group)
+                foreach (var group in songsWithCategories)
                 {
-                    obj.Song = item.Song;
-                    obj.SetChoosingCategory(item.Category);
+                    var obj = new SongsWithCategories(categories);
+                    foreach (var item in group)
+                    {
+                        obj.Song = item.Song;
+                        obj.SetChoosingCategory(item.Category);
+                    }
+                    songsWithCategorieses.Add(obj);
                 }
-                songsWithCategorieses.Add(obj);
+            }
+            catch (Exception e)
+            {
+                return new SimpleResponse( "no data");
             }
             return new SimpleResponse(songsWithCategorieses, "no data");
         }

@@ -17,10 +17,10 @@ namespace InterestingLife_Core.Controllers
     {
         private readonly IService<Song, SongModel> _songService;
         private readonly IService<Category, CategoryModel> _categoryService;
-        private readonly IService<User, ViewModelBase> _userService;
+        private readonly IService< User, UserModel> _userService;
 
         public AdminController(IService<Song, SongModel> songService, IService<Category,
-            CategoryModel> categoryService, IService<User,ViewModelBase> userService)
+            CategoryModel> categoryService, IService<User,UserModel> userService)
         {
             _songService = songService;
             _categoryService = categoryService;
@@ -97,6 +97,11 @@ namespace InterestingLife_Core.Controllers
         public SimpleResponse RemoveUser(string id)
         {
             return ((UserService)_userService).Delete(id);
+        }
+        [HttpPost]
+        public SimpleResponse CreateUser(UserModel model)
+        {
+            return _userService.Create(model);
         }
     }
 }

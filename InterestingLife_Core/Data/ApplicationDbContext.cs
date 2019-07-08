@@ -12,7 +12,10 @@ namespace InterestingLife_Core.Data
     {
         public DbSet<Diary> Diaries { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Song> Songs { get; set; }  
+        public DbSet<Song> Songs { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Role> Roles { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

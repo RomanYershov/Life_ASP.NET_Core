@@ -50,7 +50,7 @@ namespace InterestingLife_Core
             //services.AddScoped<ISongService, SongService>();
             services.AddScoped<IService<Song, SongModel>, SongService>();
             services.AddScoped<IService<Category, CategoryModel>, CategoryService>();
-            services.AddScoped<IService<User, ViewModelBase>, UserService>();
+            services.AddScoped<IService<User, UserModel>, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
