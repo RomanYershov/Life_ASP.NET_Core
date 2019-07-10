@@ -12,9 +12,9 @@ namespace InterestingLife_Core.Services
 {
     public class CategoryService : IService<Category,CategoryModel>
     {
-        private LifeDbContext _dbContext;
+        private ApplicationDbContext _dbContext;
 
-        public CategoryService(LifeDbContext context)
+        public CategoryService(ApplicationDbContext context)
         {
             _dbContext = context;
         }

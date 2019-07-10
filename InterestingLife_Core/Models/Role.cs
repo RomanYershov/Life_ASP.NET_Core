@@ -7,16 +7,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InterestingLife_Core.Models
 {
-    public class Role : IdentityRole
+    public class Role : Entity
     {
-        public string Name { get; set; }
-        //public ISet<IdentityUser> Users { get; set; }   
-        public List<Permission> Permissions { get; set; }
+        public string Name { get; set; } 
+        public virtual List<Permission> Permissions { get; set; }
 
         public Role()
         {
             Permissions = new List<Permission>();
-           // Users = new HashSet<IdentityUser>();
         }
     }
 }

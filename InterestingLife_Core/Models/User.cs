@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InterestingLife_Core.Models
 {
-    public class User : IdentityUser
+    public sealed class User : Entity
     {
-        //public List<Role> Roles { get; set; }
+        public Role Role { get; set; }    
+        public string Login { get; set; }
+        public string Email { get; set; }   
+        public string PasswordHash { get; set; }
+        public string Salt { get; set; }
         public string ReferalLink { get; set; } 
-        //public User() => Roles = new List<Role>();
     }
 }

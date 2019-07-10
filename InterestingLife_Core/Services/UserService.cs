@@ -27,38 +27,39 @@ namespace InterestingLife_Core.Services
 
         public SimpleResponse Create(UserModel model)
         {
-            User user = null;
-            if (model != null)
-            {
-                try
-                {
-                     user = new User
-                    {
-                        UserName = model.Name,
-                        Email = model.Email
-                    };
-                    user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, model.Password);
-                    //_userManager.CreateAsync(user);
+            //User user = null;
+            //if (model != null)
+            //{
+            //    try
+            //    {
+            //         user = new User
+            //        {
+            //            UserName = model.Name,
+            //            Email = model.Email
+            //        };
+            //        user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, model.Password);
+            //        //_userManager.CreateAsync(user);
                     
-                    var rrr = new IdentityRole();
+            //        var rrr = new IdentityRole();
                    
 
-                    //_dbContext.Roles.AddRange(user.Roles);
+            //        //_dbContext.Roles.AddRange(user.Roles);
 
-                    _dbContext.Users.Add(user);
-                    _dbContext.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    return new SimpleResponse(e.Message + "\n" + e.StackTrace);
-                }
-            }
+            //        _dbContext.Users.Add(user);
+            //        _dbContext.SaveChanges();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        return new SimpleResponse(e.Message + "\n" + e.StackTrace);
+            //    }
+            //}
           
-            return new SimpleResponse(new
-            {
-                UserName = user.UserName,
-                Email = user.Email,
-            });
+            //return new SimpleResponse(new
+            //{
+            //    UserName = user.UserName,
+            //    Email = user.Email,
+            //});
+            return new SimpleResponse();
         }
 
         public SimpleResponse Delete(int id)
@@ -102,7 +103,7 @@ namespace InterestingLife_Core.Services
 
         public IEnumerable<User> Get()
         {
-            return _dbContext.Users.Select(x => new User { Id = x.Id, UserName = x.UserName, Email = x.Email, PasswordHash = x.PasswordHash });
+            throw new NotImplementedException();
         }
 
         public SimpleResponse Get(int id)

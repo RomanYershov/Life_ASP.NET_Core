@@ -8,12 +8,9 @@ namespace InterestingLife_Core.Models.Song
 {
     public class Category : Entity
     {
-        public string Name { get; set; }    
-        //public List<Song> Songs { get; set; }
+        public string Name { get; set; }
+        public virtual List<Song> Songs { get; set; }
 
-        //public Category()
-        //{
-        //    Songs = new List<Song>();
-        //}
+        public Category() => Songs = new List<Song>();
     }
 }

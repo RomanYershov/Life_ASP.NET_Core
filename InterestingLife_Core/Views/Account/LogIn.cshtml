@@ -1,0 +1,19 @@
+﻿
+<login-form></login-form>
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        require(['../js/config'], function () {
+            require(['ko', 'jquery', 'account/account-component-register'], function (ko, $, components) {
+                $(document).ready(function () {
+                    ko.applyBindings(new components());
+                });
+            });
+        });
+    </script>
+}

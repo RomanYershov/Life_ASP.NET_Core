@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InterestingLife_Core.Migrations
 {
-    [DbContext(typeof(LifeDbContext))]
-    partial class LifeDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,13 +29,45 @@ namespace InterestingLife_Core.Migrations
 
                     b.Property<string>("OneMonthStatistic");
 
-                    b.Property<string>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Diaries");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("InterestingLife_Core.Models.Song.Category", b =>
@@ -46,7 +78,11 @@ namespace InterestingLife_Core.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("SongId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SongId");
 
                     b.ToTable("Categories");
                 });
@@ -57,6 +93,8 @@ namespace InterestingLife_Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId");
+
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Lyrics");
@@ -64,6 +102,8 @@ namespace InterestingLife_Core.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Songs");
                 });
@@ -87,49 +127,61 @@ namespace InterestingLife_Core.Migrations
                     b.ToTable("SongsToCategorieses");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("InterestingLife_Core.Models.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email");
 
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
+                    b.Property<string>("Login");
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("ReferalLink");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<int?>("RoleId");
 
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName");
+                    b.Property<string>("Salt");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUser");
+                    b.HasIndex("Login")
+                        .IsUnique()
+                        .HasFilter("[Login] IS NOT NULL");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("InterestingLife_Core.Models.Diary", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("InterestingLife_Core.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.Permission", b =>
+                {
+                    b.HasOne("InterestingLife_Core.Models.Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.Song.Category", b =>
+                {
+                    b.HasOne("InterestingLife_Core.Models.Song.Song")
+                        .WithMany("Categories")
+                        .HasForeignKey("SongId");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.Song.Song", b =>
+                {
+                    b.HasOne("InterestingLife_Core.Models.Song.Category")
+                        .WithMany("Songs")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("InterestingLife_Core.Models.Song.SongsToCategories", b =>
@@ -141,6 +193,13 @@ namespace InterestingLife_Core.Migrations
                     b.HasOne("InterestingLife_Core.Models.Song.Song", "Song")
                         .WithMany()
                         .HasForeignKey("SongId");
+                });
+
+            modelBuilder.Entity("InterestingLife_Core.Models.User", b =>
+                {
+                    b.HasOne("InterestingLife_Core.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,9 +14,6 @@ namespace InterestingLife_Core.Models
         public int Id { get; set; }
         public string OneMonthStatistic { get; set; }
         public DateTime DateTime { get; set; }
-
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public IdentityUser User { get; set; }
+        public virtual User User { get; set; }
     }
 }

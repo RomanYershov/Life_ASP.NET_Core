@@ -14,9 +14,9 @@ namespace InterestingLife_Core.Services
 {
     public class SongService : ISongService
     {
-        public LifeDbContext _dbContext;
+        public ApplicationDbContext _dbContext;
 
-        public SongService(LifeDbContext context)
+        public SongService(ApplicationDbContext context)
         {
             _dbContext = context;
         }

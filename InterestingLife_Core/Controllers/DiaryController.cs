@@ -28,9 +28,9 @@ namespace InterestingLife_Core.Controllers
         [HttpGet]
         public IActionResult GetTableByDate(string date)
         { 
-            var userId =  _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
+            var userId =  _applicationDb.Users.FirstOrDefault(x => x.Login == User.Identity.Name)?.Id;
             var diary = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date ?? $"{DateTime.Now.Year}-{DateTime.Now.Month}") 
-                                                                              && x.UserId == userId);
+                                                                              && x.Id == userId);
             if (diary?.OneMonthStatistic != null) return Json(diary);
             return Json("not data");
         }
@@ -53,8 +53,8 @@ namespace InterestingLife_Core.Controllers
             var diary = _applicationDb.Diaries.FirstOrDefault(x => x.Id == id && x.DateTime == dateTime);
             if (diary == null)
             {
-                var userId = _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
-                var newDiary = new Diary{OneMonthStatistic = str, DateTime = dateTime, UserId = userId };
+                var userId = _applicationDb.Users.FirstOrDefault(x => x.Login == User.Identity.Name).Id;
+                var newDiary = new Diary{OneMonthStatistic = str, DateTime = dateTime, User = _applicationDb.Users.Find(userId) };
                 _applicationDb.Diaries.Add(newDiary);
                 _applicationDb.SaveChanges();
                 return Json(newDiary.Id);
