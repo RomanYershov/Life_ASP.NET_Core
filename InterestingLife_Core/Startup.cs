@@ -51,6 +51,7 @@ namespace InterestingLife_Core
             services.AddScoped<IService<Song, SongModel>, SongService>();
             services.AddScoped<IService<Category, CategoryModel>, CategoryService>();
             services.AddScoped<IService<User, UserModel>, UserService>();
+            services.AddScoped<IDiaryService, DiaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +74,13 @@ namespace InterestingLife_Core
 
             app.UseDeveloperExceptionPage();
             app.UseAuthentication();
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -9,7 +9,7 @@ using InterestingLife_Core.Models;
 
 namespace InterestingLife_Core.Services
 {
-    public class DiaryService : IService<Diary, ViewModelBase>
+    public class DiaryService : IDiaryService
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -17,34 +17,25 @@ namespace InterestingLife_Core.Services
         {
             _dbContext = dbContext;
         }
-        public SimpleResponse Create(ViewModelBase entity)
+
+        public Diary GetTableByDate(string date)
         {
-            throw new NotImplementedException();
+            var table = _dbContext.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date ?? $"{DateTime.Now.Year}-{DateTime.Now.Month}"));
+            return table;
         }
 
-        public SimpleResponse Delete(int id)
+        public void Save(int id, string str)
         {
-            throw new NotImplementedException();
+            var diary = _dbContext.Diaries.Find(id);
+            diary.OneMonthStatistic = str;
+            _dbContext.Update(diary);
+            _dbContext.SaveChanges();
         }
 
-        public SimpleResponse Delete(Diary entity)
+        public void Create(Diary diary)
         {
-            throw new NotImplementedException();
-        }
-
-        public SimpleResponse Update(ViewModelBase entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Diary> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public SimpleResponse Get(int id)
-        {
-            throw new NotImplementedException();
+            _dbContext.Add(diary);
+            _dbContext.SaveChanges();
         }
     }
 }

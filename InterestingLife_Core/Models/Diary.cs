@@ -11,7 +11,6 @@ namespace InterestingLife_Core.Models
 {
     public class Diary : Entity
     {
-        public int Id { get; set; }
         public string OneMonthStatistic { get; set; }
         public DateTime DateTime { get; set; }
 
