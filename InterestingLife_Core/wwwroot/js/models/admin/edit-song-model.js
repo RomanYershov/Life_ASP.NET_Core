@@ -31,6 +31,7 @@
                 self.msgBox.message('#info-message', 'Необходимо заполнить все поля', 'red');
                 return;
             }
+            self.choosingCategories = ko.observableArray([]);
             $.each(self.categories(), function (i, item) {
                 if (item.hasChoosing()) {
                     debugger;
