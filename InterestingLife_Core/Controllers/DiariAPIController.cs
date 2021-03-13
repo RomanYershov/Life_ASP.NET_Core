@@ -18,7 +18,7 @@ namespace InterestingLife_Core.Controllers
     {
         private readonly IDiaryService _service;
 
-        public DiariAPIController(IDiaryService service) => _service = service;
+        public DiariAPIController(IDiaryService service) => _service =  service;
 
         [HttpGet]
         [Route("api/diary/get/{date}")]
