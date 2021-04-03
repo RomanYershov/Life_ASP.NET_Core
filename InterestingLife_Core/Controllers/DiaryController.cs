@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using InterestingLife_Core.Abstractions;
 using InterestingLife_Core.Data;
 using InterestingLife_Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +17,11 @@ namespace InterestingLife_Core.Controllers
     public class DiaryController : Controller
     {
         private ApplicationDbContext _applicationDb;
-
-        public DiaryController(ApplicationDbContext context)
+        private IDiaryService _diaryService;
+        public DiaryController(IDiaryService diaryService, ApplicationDbContext contex)
         {
-            _applicationDb = context;
+            _diaryService = diaryService;
+            _applicationDb = contex;
         }
         public IActionResult Index()
         {
@@ -28,10 +30,9 @@ namespace InterestingLife_Core.Controllers
 
         [HttpGet]
         public IActionResult GetTableByDate(string date)
-        { 
-            var userId =  _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
-            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.DateTime == DateTime.Parse(date ?? $"{DateTime.Now.Year}-{DateTime.Now.Month}") 
-                                                                              && x.UserId == userId);
+        {
+            var userId = _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
+            var diary = _diaryService.GetTableByDate(date, userId);
             if (diary?.OneMonthStatistic != null) return Json(diary);
             return Json("not data");
         }
@@ -50,27 +51,11 @@ namespace InterestingLife_Core.Controllers
         [HttpPost]
         public IActionResult Save(int id, string str, string date)
         {
-            var dateTime = DateTime.Parse(date);
-            var diary = _applicationDb.Diaries.FirstOrDefault(x => x.Id == id && x.DateTime == dateTime);
-            if (diary == null)
-            {
-                var userId = _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
-                var newDiary = new Diary{OneMonthStatistic = str, DateTime = dateTime, UserId = userId };
-                _applicationDb.Diaries.Add(newDiary);
-                _applicationDb.SaveChanges();
-                return Json(newDiary.Id);
-            }
-            else
-            {
-                if (!diary.OneMonthStatistic.Contains(str))
-                {
-                    diary.OneMonthStatistic = str;
-                    _applicationDb.Update(diary);
-                    _applicationDb.SaveChanges();
-                }
-                return Json(diary.Id);
-            }
-           
+            var userId = _applicationDb.Users.FirstOrDefault(x => x.UserName == User.Identity.Name)?.Id;
+            var diaryId = _diaryService.Save(id, str, date, userId);
+            return Json(diaryId);
+
+
         }
     }
 }
